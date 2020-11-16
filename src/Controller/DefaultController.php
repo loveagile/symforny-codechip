@@ -9,11 +9,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends AbstractController
 {
     /**
-     * @Route("/default", name="default")
+     * @Route("/", name="default")
      */
     public function index(): Response
     {
-        return $this->json([ 
+        return $this->json([
             'message' => 'Welcome to your new controller!',
             'path' => 'src/Controller/DefaultController.php',
         ]);
