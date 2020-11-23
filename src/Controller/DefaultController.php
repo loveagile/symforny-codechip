@@ -31,15 +31,32 @@ class DefaultController extends AbstractController
         $manager->flush();*/
 
         //Atualizando dados com Doctrine
-        $product = $this->getDoctrine()->getRepository(Product::class)->find(1);
+        /*$product = $this->getDoctrine()->getRepository(Product::class)->find(1);
 
         $product->setName('Produto Teste Editado');
         $product->setUpdateAt(new \DateTime('now', new \DateTimeZone('America/Sao_Paulo')));
 
         $manager = $this->getDoctrine()->getManager();
         $manager->persist($product);
-        $manager->flush();
+        $manager->flush();*/
 
+        //Remoção de dados com Doctrine
+        /*$product = $this->getDoctrine()->getRepository(Product::class)->find(1);
+
+        $manager = $this->getDoctrine()->getManager();
+        $manager->remove($product);
+        $manager->flush();*/
+
+        //Buscando todos os produtos
+        //$products = $this->getDoctrine()->getRepository(Product::class)->findAll();
+        //dump($products);
+        //Buscando um produto especifico
+        //$product = $this->getDoctrine()->getRepository(Product::class)->find(2);
+        //print $product->getName();
+        //dump($product);
+        //Buscando um produto via slug
+        $product = $this->getDoctrine()->getRepository(Product::class)->findBy(['id'=>2]);
+        dump($product);
         return $this->render('index.html.twig', compact('name'));
     }
 
