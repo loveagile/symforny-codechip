@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Product;
 /**
  * @Route("/admin/products", name="admin_")
  */
@@ -15,7 +16,9 @@ class ProductController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('admin/product/index.html.twig', []);
+        $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
+        var_dump($products);
+        return $this->render('admin/product/index.html.twig', compact('compacts'));
     }
 
     /**
@@ -49,6 +52,7 @@ class ProductController extends AbstractController
      */
     public function edit($product)
     {
+        $product = $this->getDoctrine()->getRepository(Product::class)->find($product);
     }
 
     /**
@@ -56,7 +60,7 @@ class ProductController extends AbstractController
      */
     public function update($product)
     {
-        $product = $this->getDoctrine()->getRepository(Product::class)->find(1);
+        $product = $this->getDoctrine()->getRepository(Product::class)->find($product);
 
         $product->setName('Produto Teste Editado');
         $product->setUpdateAt(new \DateTime('now', new \DateTimeZone('America/Sao_Paulo')));
@@ -71,7 +75,7 @@ class ProductController extends AbstractController
      */
     public function remove($product)
     {
-        $product = $this->getDoctrine()->getRepository(Product::class)->find(1);
+        $product = $this->getDoctrine()->getRepository(Product::class)->find($product);
 
         $manager = $this->getDoctrine()->getManager();
         $manager->remove($product);
