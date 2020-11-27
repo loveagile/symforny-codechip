@@ -16,36 +16,10 @@ class DefaultController extends AbstractController
     {
         $name = 'Lwcyano Will';
 
-        //Criando dados com Doctrine
-        /*$product = new Product();
-        $product->setName('Produto Teste 2');
-        $product->setDescription('Descrição 2');
-        $product->setBody('Info produto 2');
-        $product->setSlug('produto-test-2');
-        $product->setPrice(3990);
-        $product->setCreatedAt(new \DateTime('now', new \DateTimeZone('America/Sao_Paulo')));
-        $product->setUpdateAt(new \DateTime('now', new \DateTimeZone('America/Sao_Paulo')));
 
-        $manager = $this->getDoctrine()->getManager();
-        $manager->persist($product);
-        $manager->flush();*/
-
-        //Atualizando dados com Doctrine
-        /*$product = $this->getDoctrine()->getRepository(Product::class)->find(1);
-
-        $product->setName('Produto Teste Editado');
-        $product->setUpdateAt(new \DateTime('now', new \DateTimeZone('America/Sao_Paulo')));
-
-        $manager = $this->getDoctrine()->getManager();
-        $manager->persist($product);
-        $manager->flush();*/
 
         //Remoção de dados com Doctrine
-        /*$product = $this->getDoctrine()->getRepository(Product::class)->find(1);
 
-        $manager = $this->getDoctrine()->getManager();
-        $manager->remove($product);
-        $manager->flush();*/
 
         //Buscando todos os produtos
         //$products = $this->getDoctrine()->getRepository(Product::class)->findAll();
