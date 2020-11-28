@@ -14,10 +14,10 @@ class ProductController extends AbstractController
     /**
      * @Route("/", name="index_product")
      */
-    public function index(): Response
+    public function index()
     {
         $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
-        var_dump($products);
+
         return $this->render('admin/product/index.html.twig', compact('compacts'));
     }
 
@@ -29,7 +29,7 @@ class ProductController extends AbstractController
     }
 
     /**
-     * @Route("/store", name="store_product", methods={"POST"})
+     * @Route("/store", name="store_products", methods={"POST"})
      */
     public function store()
     {

@@ -9,10 +9,12 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
-
+        <div class="container">
+            {% block body %}{% endblock %}
+        </div>
         {{ encore_entry_script_tags('app') }}
 
         {% block javascripts %}{% endblock %}
+
     </body>
 </html>
