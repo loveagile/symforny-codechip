@@ -12,17 +12,16 @@ use App\Entity\Product;
 class ProductController extends AbstractController
 {
     /**
-     * @Route("/", name="index_product")
+     * @Route("/", name="index_products")
      */
     public function index()
     {
         $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
-
-        return $this->render('admin/product/index.html.twig', compact('compacts'));
+        return $this->render('admin/product/index.html.twig', compact('products'));
     }
 
     /**
-     * @Route("/create", name="create_product")
+     * @Route("/create", name="create_products")
      */
     public function create()
     {
