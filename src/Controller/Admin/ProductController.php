@@ -3,10 +3,9 @@
 namespace App\Controller\Admin;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Product;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\{Request, Response};
 /**
  * @Route("/admin/products", name="admin_")
  */
@@ -34,20 +33,28 @@ class ProductController extends AbstractController
      */
     public function store(Request $request)
     {
-        $data = $request->request->all();
-        dump($data);
-        /*$product = new Product();
-        $product->setName('Produto Teste 2');
-        $product->setDescription('Descrição 2');
-        $product->setBody('Info produto 2');
-        $product->setSlug('produto-test-2');
-        $product->setPrice(3990);
-        $product->setCreatedAt(new \DateTime('now', new \DateTimeZone('America/Sao_Paulo')));
-        $product->setUpdateAt(new \DateTime('now', new \DateTimeZone('America/Sao_Paulo')));
+        try {
+            $data = $request->request->all();
 
-        $manager = $this->getDoctrine()->getManager();
-        $manager->persist($product);
-        $manager->flush();*/
+            $product = new Product();
+
+            $product->setName($data['name']);
+            $product->setDescription($data['description']);
+            $product->setBody($data['body']);
+            $product->setSlug($data['slug']);
+            $product->setPrice($data['price']);
+            $product->setCreatedAt(new \DateTime('now', new \DateTimeZone('America/Sao_Paulo')));
+            $product->setUpdateAt(new \DateTime('now', new \DateTimeZone('America/Sao_Paulo')));
+
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($product);
+            $manager->flush();
+
+            return $this->redirectToRoute('admin_index_products');
+           
+        } catch (\Exception $e) {
+            die($e->getMessage());
+        }
     }
 
     /**
