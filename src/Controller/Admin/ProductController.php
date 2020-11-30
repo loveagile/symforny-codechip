@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Product;
+use Symfony\Component\HttpFoundation\Request;
 /**
  * @Route("/admin/products", name="admin_")
  */
@@ -25,14 +26,17 @@ class ProductController extends AbstractController
      */
     public function create()
     {
+        return $this->render('admin/product/create.html.twig', compact('products'));
     }
 
     /**
      * @Route("/store", name="store_products", methods={"POST"})
      */
-    public function store()
+    public function store(Request $request)
     {
-        $product = new Product();
+        $data = $request->request->all();
+        dump($data);
+        /*$product = new Product();
         $product->setName('Produto Teste 2');
         $product->setDescription('Descrição 2');
         $product->setBody('Info produto 2');
@@ -43,7 +47,7 @@ class ProductController extends AbstractController
 
         $manager = $this->getDoctrine()->getManager();
         $manager->persist($product);
-        $manager->flush();
+        $manager->flush();*/
     }
 
     /**
