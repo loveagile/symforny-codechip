@@ -1,0 +1,53 @@
+composer req maker
+composer req annotations
+composer req twig
+
+16-composer req debug --dev
+17-composer req encore; "gera o build de desenvolvimento"
+17-npm i; "Instala todas as dependências, tbm pode ser npm install"
+
+#instalação pacote de estilo
+npm i -D bootstrap
+
+#cria um build de desenvolvimento
+npm run dev
+
+Aula 18 - Aplicação do estilo não surtiu efeito.
+
+
+21-composer req orm
+22-php bin/console doctrine:database:create
+23-
+php bin/console make:entity
+
+Cria as tabelas usando src/Entity como base;
+php bin/console doctrine:schema:create --dump-sql
+
+php bin/console doctrine:schema:update --force
+
+24-php bin/console make:entity
+
+criar/atualiza o histórico de versionamento do banco de dados no diretório migrations; 
+-php bin/console make:migration
+
+executar as modificações do que consta no arquivo versionado no diretório imigrations;
+-php bin/console doctrine:migrations:migrate
+
+Criar controller 
+29-php bin/console make:controller > Admin\ProductController
+Exbe as rotas do sistemas
+29-php bin/console debug:route
+
+
+Opina Valida;
+Opinião do povo;
+Cliente opina;
+Opinião Sincera;
+Parecer do Cliente;
+
+
+My brother wants to live in Brazil.
+
+
+
+
