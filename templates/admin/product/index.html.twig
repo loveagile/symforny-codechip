@@ -18,6 +18,8 @@
                     <th>ID</th>
                     <th>Name</th>
                     <th>Criado Em</th>
+                    <th>Editar</th>
+                    <th>Remover</th>
                 </tr>
             </thead>
             <tbody>
@@ -26,6 +28,8 @@
                         <td>{{ product.getId() }}</td>
                         <td>{{ product.getName() }}</td>
                         <td>{{ product.getCreatedAt()|date('d/m/Y H:i:s') }}</td>
+                        <td><a href="/admin/products/edit/{{ product.getId() }}" class="btn btn-success">Editar</a></td>
+                        <td><a href="/admin/products/remove/{{ product.getId() }}" class="btn btn-danger">Remover</a></td>
                     </tr>
                 {% endfor %}
             </tbody>

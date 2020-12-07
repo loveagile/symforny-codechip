@@ -51,33 +51,48 @@ class ProductController extends AbstractController
             $manager->flush();
 
             return $this->redirectToRoute('admin_index_products');
-           
+
         } catch (\Exception $e) {
             die($e->getMessage());
         }
     }
 
     /**
-     * @Route("/edit/{product}", name="edit_products", methods={"POST"})
+     * @Route("/edit/{product}", name="edit_products")
      */
     public function edit($product)
     {
         $product = $this->getDoctrine()->getRepository(Product::class)->find($product);
+
+        return $this->render('admin/product/edit.html.twig', compact('product'));
     }
 
     /**
      * @Route("/update/{product}", name="update_products", methods={"POST"})
      */
-    public function update($product)
+    public function update($product, Request $request)
     {
-        $product = $this->getDoctrine()->getRepository(Product::class)->find($product);
+        try {
+            $data = $request->request->all();
+            $product = $this->getDoctrine()->getRepository(Product::class)->find($product);
 
-        $product->setName('Produto Teste Editado');
-        $product->setUpdateAt(new \DateTime('now', new \DateTimeZone('America/Sao_Paulo')));
+            $product->setName($data['name']);
+            $product->setDescription($data['description']);
+            $product->setBody($data['body']);
+            $product->setSlug($data['slug']);
+            $product->setPrice($data['price']);
 
-        $manager = $this->getDoctrine()->getManager();
-        $manager->persist($product);
-        $manager->flush();
+            $product->setUpdateAt(new \DateTime('now', new \DateTimeZone('America/Sao_Paulo')));
+
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($product);
+            $manager->flush();
+
+            return $this->redirectToRoute('admin_edit_products', ['product' => $product]);
+
+        } catch (\Exception $e) {
+            die($e->getMessage());
+        }
     }
 
     /**
