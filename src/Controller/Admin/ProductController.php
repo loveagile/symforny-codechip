@@ -88,7 +88,7 @@ class ProductController extends AbstractController
             $manager->persist($product);
             $manager->flush();
 
-            return $this->redirectToRoute('admin_edit_products', ['product' => $product]);
+            return $this->redirectToRoute('admin_edit_products', ['product' => $product->getId()]);
 
         } catch (\Exception $e) {
             die($e->getMessage());
