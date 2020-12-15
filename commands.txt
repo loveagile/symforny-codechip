@@ -38,15 +38,10 @@ Criar controller
 Exbe as rotas do sistemas
 29-php bin/console debug:route
 
-
-Opina Valida;
-Opinião do povo;
-Cliente opina;
-Opinião Sincera;
-Parecer do Cliente;
+40-npm run watch
+Exibe/executa em tempo real as alterações na build
 
 
-My brother wants to live in Brazil.
 
 
 
