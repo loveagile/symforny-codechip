@@ -10,7 +10,7 @@
         </div>
 
         <div class="col-12">
-            <form action="/admin/products/store" method="post">
+            <form action="{{ path('admin_store_products') }}" method="post">
                 <div class="form-group">
                     <label for="">Nome Produto</label>
                     <input type="text" class="form-control" name="name">
