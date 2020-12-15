@@ -29,6 +29,7 @@
                         <td>{{ product.getCreatedAt()|date('d/m/Y H:i:s') }}</td>
                         <td >
                             <a href="{{ path('admin_edit_products', {product: product.id}) }}" class="btn btn-sm btn-primary">Editar</a>
+                            <a href="{{ path('admin_remove_products', {product: product.id}) }}" class="btn btn-sm btn-danger">Remover</a>
                         </td>
                     </tr>
                 {% endfor %}

@@ -96,14 +96,21 @@ class ProductController extends AbstractController
     }
 
     /**
-     * @Route("/remove/{product", name="remove_products", methods={"POST"})
+     * @Route("/remove/{product}", name="remove_products")
      */
     public function remove($product)
     {
-        $product = $this->getDoctrine()->getRepository(Product::class)->find($product);
+        try {
+            $product = $this->getDoctrine()->getRepository(Product::class)->find($product);
 
-        $manager = $this->getDoctrine()->getManager();
-        $manager->remove($product);
-        $manager->flush();
+            $manager = $this->getDoctrine()->getManager();
+            $manager->remove($product);
+            $manager->flush();
+
+            return $this->redirectToRoute('admin_index_products');
+
+        } catch (\Exception $e) {
+            die($e->getMessage());
+        }
     }
 }
