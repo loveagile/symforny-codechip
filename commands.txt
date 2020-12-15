@@ -41,7 +41,9 @@ Exbe as rotas do sistemas
 40-npm run watch
 Exibe/executa em tempo real as alterações na build
 
-
+44-php bin/console make:entity
+User
+Adress
 
 
 
