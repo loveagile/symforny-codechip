@@ -45,6 +45,7 @@ Exibe/executa em tempo real as alterações na build
 User
 Adress
 
-
+45-php bin/console doctrine:schema:update --dump-sql(exibe a query );
+php bin/console make:migration
 
 

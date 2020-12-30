@@ -48,6 +48,11 @@ class User
      */
     private $updateAt;
 
+    /**
+     * @ORM\OneToOne(targetEntity="Address", mappedBy="address")
+     */
+    private $address;
+
     public function getId(): ?int
     {
         return $this->id;

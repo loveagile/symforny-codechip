@@ -48,6 +48,11 @@ class Address
      */
     private $zipcode;
 
+    /**
+     * @ORM\OneToOne(targetEntity="User", inversedBy="address")
+     */
+    private $user;
+
     public function getId(): ?int
     {
         return $this->id;
