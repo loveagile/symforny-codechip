@@ -49,7 +49,7 @@ class User
     private $updateAt;
 
     /**
-     * @ORM\OneToOne(targetEntity="Address", mappedBy="address")
+     * @ORM\OneToOne(targetEntity="Address", mappedBy="user")
      */
     private $address;
 
@@ -128,10 +128,5 @@ class User
         $this->updateAt = $updateAt;
 
         return $this;
-    }
-
-    public function getAddress()
-    {
-        return $this->address;
     }
 }

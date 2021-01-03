@@ -49,7 +49,7 @@ class Address
     private $zipcode;
 
     /**
-     * @ORM\OneToOne(targetEntity="User", inversedBy="address")
+     * @ORM\OneToOne(targetEntity=User::class, cascade={"persist", "remove"})
      */
     private $user;
 
@@ -130,13 +130,15 @@ class Address
         return $this;
     }
 
-    public function getUser()
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setUser(User $user)
+    public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
     }
 }
