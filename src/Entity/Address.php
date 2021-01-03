@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=AddressRepository::class)
- * @ORM\Table(name="adresses")
+ * @ORM\Table(name="addresses")
  */
 class Address
 {
@@ -128,5 +128,15 @@ class Address
         $this->zipcode = $zipcode;
 
         return $this;
+    }
+
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    public function setUser(User $user)
+    {
+        $this->user = $user;
     }
 }

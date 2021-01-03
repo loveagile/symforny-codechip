@@ -48,4 +48,7 @@ Adress
 45-php bin/console doctrine:schema:update --dump-sql(exibe a query );
 php bin/console make:migration
 
+46-php bin/console doctrine:migrations:migrate
+-php bin/console doctrine:query:sql "SELECT * FROM users"
+-php bin/console doctrine:query:sql "SELECT * FROM adresses"
 
