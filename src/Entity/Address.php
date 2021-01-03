@@ -49,7 +49,7 @@ class Address
     private $zipcode;
 
     /**
-     * @ORM\OneToOne(targetEntity=User::class, cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=User::class, inversedBy="address", cascade={"persist", "remove"})
      */
     private $user;
 

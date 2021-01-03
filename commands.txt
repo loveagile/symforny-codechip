@@ -54,14 +54,10 @@ php bin/console make:migration
 
 
 48-php bin/console make:entity
->Adress
->user
->relation
->User
->OneToOne
->yes
->no
+>Adress >user >relation >User >OneToOne >yes >no
 
+49-php bin/console make:entity
+>Adress >user >relation >User >OneToOne >yes >yes >enter
 
 
 

@@ -49,7 +49,7 @@ class User
     private $updateAt;
 
     /**
-     * @ORM\OneToOne(targetEntity="Address", mappedBy="user")
+     * @ORM\OneToOne(targetEntity=Address::class, mappedBy="user", cascade={"persist", "remove"})
      */
     private $address;
 
@@ -126,6 +126,24 @@ class User
     public function setUpdateAt(\DateTimeInterface $updateAt): self
     {
         $this->updateAt = $updateAt;
+
+        return $this;
+    }
+
+    public function getAddress(): ?Address
+    {
+        return $this->address;
+    }
+
+    public function setAddress(?Address $address): self
+    {
+        $this->address = $address;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newUser = null === $address ? null : $this;
+        if ($address->getUser() !== $newUser) {
+            $address->setUser($newUser);
+        }
 
         return $this;
     }
