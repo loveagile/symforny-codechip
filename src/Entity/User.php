@@ -53,6 +53,11 @@ class User
      */
     private $address;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Order::class, mappedBy="user")
+     */
+    private $order;
+
     public function getId(): ?int
     {
         return $this->id;

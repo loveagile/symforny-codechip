@@ -59,6 +59,13 @@ php bin/console make:migration
 49-php bin/console make:entity
 >Adress >user >relation >User >OneToOne >yes >yes >enter
 
+51-php bin/console make:entity Order
+>reference>enter>enter>enter
+>items>text>enter>enter
+>createdAt>text>enter>enter
+>updatedAt>text>enter>enter
+
+-php bin/console doctrine:schema:update --dump-sql
 
 
 
