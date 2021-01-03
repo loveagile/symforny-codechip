@@ -16,10 +16,11 @@ class DefaultController extends AbstractController
     public function index(): Response
     {
         $name = 'Lwcyano Will';
+        $user = $this->getDoctrine()->getRepository(User::class)->find(1);
 
-        $manager = $this->getDoctrine()->getManager();
+        //dump($address->getUser()->getLastName());
 
-        $user = new User();
+        /*$user = new User();
         $user->setFirstName('Harry');
         $user->setLastName('Will');
         $user->setEmail('willvix@outlook.com');
@@ -40,9 +41,9 @@ class DefaultController extends AbstractController
         $address->setUser($user);
 
         $manager->persist($address);
-        $manager->flush();
+        $manager->flush();*/
 
-        return $this->render('index.html.twig', compact('name'));
+        return $this->render('index.html.twig', compact('name','user'));
     }
 
     /**
