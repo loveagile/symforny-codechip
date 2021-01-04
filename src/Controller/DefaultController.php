@@ -2,12 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
+use App\Entity\Product;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\User;
-use App\Entity\Address;
-use App\Entity\Order;
+use App\Entity\{User, Address, Order};
 
 class DefaultController extends AbstractController
 {
@@ -20,8 +20,21 @@ class DefaultController extends AbstractController
         $user = $this->getDoctrine()->getRepository(User::class)->find(1);
         dump($user->getOrder()->toArray());
 
-        $order = $this->getDoctrine()->getRepository(Order::class)->find(1);
-        dump($order->getUser()->getFirstName());
+        //Produto e Categoria
+        $product = $this->getDoctrine()->getRepository(Product::class)->find(2);
+
+        $category = new Category();
+        $category->setName('Notebooks');
+        //$category->setDescription('Notebooks e Netbooks');
+        $category->setSlug('notebook');
+        $category->setCreatedAt(new \DateTime('now', new \DateTimeZone('America/Sao_Paulo')));
+        $category->setUpdatedAt(new \Datetime('now', new \DateTimeZone('America/Sao_Paulo')));
+
+        $product->setCategory($category);
+        $this->getDoctrine()->getManager()->flush();
+
+        //$order = $this->getDoctrine()->getRepository(Order::class)->find(1);
+        //dump($order->getUser()->getFirstName());
 
 //        $order = new Order();
 //        $order->setReference('CODIDO COMPRA TRÊS');

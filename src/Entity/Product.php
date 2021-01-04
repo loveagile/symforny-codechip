@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ProductRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -54,9 +55,14 @@ class Product
     private $updateAt;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="product")
+     * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="product", cascade={"persist"})
      */
     private $category;
+
+    public function __construct()
+    {
+        $this->category = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -144,6 +150,21 @@ class Product
     {
         $this->updateAt = $updateAt;
 
+        return $this;
+    }
+
+    public function getCategories()
+    {
+        return $this->category;
+    }
+
+    public function setCategory(Category $category): self
+    {
+        if ($this->category->contains($category)) {
+            return $this;
+        }
+
+        $this->category[] = $category;
         return $this;
     }
 }
