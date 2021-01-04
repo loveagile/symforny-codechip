@@ -39,7 +39,8 @@ class Order
     private $updatedAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="order", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="orders")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $user;
 
@@ -104,6 +105,7 @@ class Order
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
         return $this;
     }
 }
