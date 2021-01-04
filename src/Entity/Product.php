@@ -53,6 +53,11 @@ class Product
      */
     private $updateAt;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="product")
+     */
+    private $category;
+
     public function getId(): ?int
     {
         return $this->id;

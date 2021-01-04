@@ -43,6 +43,11 @@ class Category
      */
     private $updatedAt;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Product::class, mappedBy="category")
+     */
+    private $product;
+
     public function getId(): ?int
     {
         return $this->id;
