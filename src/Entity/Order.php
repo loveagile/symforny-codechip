@@ -39,7 +39,7 @@ class Order
     private $updatedAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="orders")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="order")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;

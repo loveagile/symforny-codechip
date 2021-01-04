@@ -20,21 +20,21 @@ class DefaultController extends AbstractController
         $user = $this->getDoctrine()->getRepository(User::class)->find(1);
         dump($user->getOrder()->toArray());
 
-        //$order = $this->getDoctrine()->getRepository(Order::class)->find(1);
-        //dump($order->getUser()->getFirstName());
+        $order = $this->getDoctrine()->getRepository(Order::class)->find(3);
+        dump($order->getUser()->getFirstName());
 
-        $order = new Order();
-        $order->setReference('CODIDO COMPRA TRÊS');
-        $order->setItems('ITEMS');
-        $order->setUser($user);
-
-        $order->setCreatedAt(new \DateTime('now', new \DateTimeZone('America/Sao_Paulo')));
-        $order->setUpdatedAt(new \DateTime('now', new \DateTimeZone('America/Sao_Paulo')));
-        $order->setUser($user);
-        //dump($order);
-
-        $this->getDoctrine()->getManager()->persist($order);
-        $this->getDoctrine()->getManager()->flush($order);
+//        $order = new Order();
+//        $order->setReference('CODIDO COMPRA TRÊS');
+//        $order->setItems('ITEMS');
+//        $order->setUser($user);
+//
+//        $order->setCreatedAt(new \DateTime('now', new \DateTimeZone('America/Sao_Paulo')));
+//        $order->setUpdatedAt(new \DateTime('now', new \DateTimeZone('America/Sao_Paulo')));
+//        $order->setUser($user);
+//        //dump($order);
+//
+//        $this->getDoctrine()->getManager()->persist($order);
+//        $this->getDoctrine()->getManager()->flush($order);
         //dump($address->getUser()->getLastName());
 
         /*$user = new User();
