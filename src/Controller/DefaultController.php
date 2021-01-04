@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\User;
 use App\Entity\Address;
+use App\Entity\Order;
 
 class DefaultController extends AbstractController
 {
@@ -17,7 +18,23 @@ class DefaultController extends AbstractController
     {
         $name = 'Lwcyano Will';
         $user = $this->getDoctrine()->getRepository(User::class)->find(1);
+        dump($user->getOrder()->toArray());
 
+        $order = $this->getDoctrine()->getRepository(Order::class)->find(1);
+        dump($order->getUser()->getFirstName());
+
+//        $order = new Order();
+//        $order->setReference('CODIDO COMPRA');
+//        $order->setItems('ITEMS');
+//        $order->setUser($user);
+//
+//        $order->setCreatedAt(new \DateTime('now', new \DateTimeZone('America/Sao_Paulo')));
+//        $order->setUpdatedAt(new \DateTime('now', new \DateTimeZone('America/Sao_Paulo')));
+//        $order->setUser($user);
+//        //dump($order);
+//
+//        $this->getDoctrine()->getManager()->persist($order);
+//        $this->getDoctrine()->getManager()->flush($order);
         //dump($address->getUser()->getLastName());
 
         /*$user = new User();

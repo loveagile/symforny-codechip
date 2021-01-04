@@ -67,6 +67,9 @@ php bin/console make:migration
 
 -php bin/console doctrine:schema:update --dump-sql
 
+52-php bin/console make:migration
+-php bin/console doctrine:migrations:migrate
+
 
 
 

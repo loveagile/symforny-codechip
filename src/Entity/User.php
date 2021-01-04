@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -57,6 +58,11 @@ class User
      * @ORM\OneToMany(targetEntity=Order::class, mappedBy="user")
      */
     private $order;
+
+    public function _construct()
+    {
+        $this->order = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -151,5 +157,10 @@ class User
         }
 
         return $this;
+    }
+
+    public function getOrder()
+    {
+        return $this->order;
     }
 }
