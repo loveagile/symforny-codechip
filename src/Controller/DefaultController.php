@@ -20,7 +20,7 @@ class DefaultController extends AbstractController
         $user = $this->getDoctrine()->getRepository(User::class)->find(1);
         dump($user->getOrder()->toArray());
 
-        $order = $this->getDoctrine()->getRepository(Order::class)->find(3);
+        $order = $this->getDoctrine()->getRepository(Order::class)->find(1);
         dump($order->getUser()->getFirstName());
 
 //        $order = new Order();

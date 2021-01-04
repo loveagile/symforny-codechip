@@ -76,6 +76,19 @@ php bin/console make:migration
 -php bin/console doctrine:schema:update --dump-sql
 -php bin/console make:migration
 
+55-php bin/console make:entity Category
+>name >string >255 >no
+>description >string >255 >yes
+>slug >string >255 >no
+>createdAt >datetime >no
+>updatedAt >datetime >no
+
+-php bin/console doctrine:schema:update --dump-sql
+
+-php bin/console doctrine:migrations:migrate
+
+
+
 
 
 
