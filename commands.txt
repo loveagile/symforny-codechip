@@ -95,6 +95,8 @@ php bin/console make:migration
 59-php bin/console make:entity Product
 >category >relation >Category >ManyToMany >yes >product
 
+62-composer req form
+
 
 
 
