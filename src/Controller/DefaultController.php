@@ -18,20 +18,21 @@ class DefaultController extends AbstractController
     {
         $name = 'Lwcyano Will';
         $user = $this->getDoctrine()->getRepository(User::class)->find(1);
-        dump($user->getOrder()->toArray());
+        //dump($user->getOrder()->toArray());
 
         //Produto e Categoria
-        $product = $this->getDoctrine()->getRepository(Product::class)->find(2);
+        $category = $this->getDoctrine()->getRepository(Category::class)->find(1);
+        dump($category->getProducts()->toArray());
 
-        $category = new Category();
-        $category->setName('Notebooks');
-        //$category->setDescription('Notebooks e Netbooks');
-        $category->setSlug('notebook');
-        $category->setCreatedAt(new \DateTime('now', new \DateTimeZone('America/Sao_Paulo')));
-        $category->setUpdatedAt(new \Datetime('now', new \DateTimeZone('America/Sao_Paulo')));
-
-        $product->setCategory($category);
-        $this->getDoctrine()->getManager()->flush();
+//        $category = new Category();
+//        $category->setName('Notebooks');
+//        //$category->setDescription('Notebooks e Netbooks');
+//        $category->setSlug('notebook');
+//        $category->setCreatedAt(new \DateTime('now', new \DateTimeZone('America/Sao_Paulo')));
+//        $category->setUpdatedAt(new \Datetime('now', new \DateTimeZone('America/Sao_Paulo')));
+//
+//        $product->setCategory($category);
+//        $this->getDoctrine()->getManager()->flush();
 
         //$order = $this->getDoctrine()->getRepository(Order::class)->find(1);
         //dump($order->getUser()->getFirstName());
