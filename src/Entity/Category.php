@@ -123,7 +123,7 @@ class Category
     /**
      * @return Collection|Product[]
      */
-    public function getProduct(): Collection
+    public function getProducts(): Collection
     {
         return $this->product;
     }
