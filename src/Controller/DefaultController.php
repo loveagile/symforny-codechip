@@ -18,11 +18,15 @@ class DefaultController extends AbstractController
     {
         $name = 'Lwcyano Will';
         $user = $this->getDoctrine()->getRepository(User::class)->find(1);
+        $order = $this->getDoctrine()->getRepository(Order::class)->find(1);
         //dump($user->getOrder()->toArray());
+        $user->removeOrder($order);
+
+        $this->getDoctrine()->getManager()->flush();
 
         //Produto e Categoria
-        $category = $this->getDoctrine()->getRepository(Category::class)->find(1);
-        dump($category->getProducts()->toArray());
+        //$category = $this->getDoctrine()->getRepository(Category::class)->find(1);
+        //dump($category->getProducts()->toArray());
 
 //        $category = new Category();
 //        $category->setName('Notebooks');
