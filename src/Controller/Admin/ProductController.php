@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Product;
 use Symfony\Component\HttpFoundation\{Request, Response};
+use App\Form;
 /**
  * @Route("/admin/products", name="admin_")
  */
@@ -25,7 +26,13 @@ class ProductController extends AbstractController
      */
     public function create()
     {
-        return $this->render('admin/product/create.html.twig', compact('products'));
+        $form = $this->createForm(Form\ProductType::class, new Product());
+
+        return $this->render('admin/product/create.html.twig', [
+            'form' => $form->createView()
+        ]);
+
+        //return $this->render('admin/product/create.html.twig', compact('products'));
     }
 
     /**
