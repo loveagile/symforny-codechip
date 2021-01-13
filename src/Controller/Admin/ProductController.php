@@ -53,11 +53,28 @@ class ProductController extends AbstractController
     /**
      * @Route("/edit/{product}", name="edit_products")
      */
-    public function edit($product)
+    public function edit($product, Request $request)
     {
         $product = $this->getDoctrine()->getRepository(Product::class)->find($product);
 
-        return $this->render('admin/product/edit.html.twig', compact('product'));
+        $form = $this->createForm(Form\ProductType::class, $product);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            $product = $form->getData();
+            $product->setUpdateAt();
+
+            $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash('sucess', 'Produto atualizado com sucesso!');
+
+            return $this->redirectToRoute('admin_edit_products', ['product' => $product->getId()]);
+        }
+
+        return $this->render('admin/product/edit.html.twig', [
+            'form' =>$form->createView()
+            ]);
     }
 
     /**

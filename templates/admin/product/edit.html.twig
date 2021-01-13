@@ -10,31 +10,35 @@
         </div>
 
         <div class="col-12">
-            <form action="{{ path('admin_update_products', {product: product.id}) }}" method="post">
-                <div class="form-group">
-                    <label for="">Nome Produto</label>
-                    <input type="text" class="form-control" name="name" value="{{ product.name }}">
-                </div>
-                <div class="form-group">
-                    <label for="">Descrição</label>
-                    <input type="text" class="form-control" name="description" value="value="{{ product.description }}"">
-                </div>
-                <div class="form-group">
-                    <label for="">Conteúdo/Informações</label>
-                    <textarea class="form-control" name="body">{{ product.body }}"</textarea>
-                </div>
-                <div class="form-group">
-                    <label for="">Slug</label>
-                    <input type="text" class="form-control" name="slug" value="{{ product.slug }}">
-                </div>
-                <div class="form-group">
-                    <label for="">Preço</label>
-                    <input type="text" class="form-control" name="price" value="{{ product.price }}">
-                </div>
-                <div class="form-group">
-                    <button class="btn btn-lg btn-success">Atualizar Produto</button>
-                </div>
-            </form>
+            {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <button type="submit">Atualizar Produto</button>
+            {{ form_end(form) }}
+{#            <form action="{{ path('admin_update_products', {product: product.id}) }}" method="post">#}
+{#                <div class="form-group">#}
+{#                    <label for="">Nome Produto</label>#}
+{#                    <input type="text" class="form-control" name="name" value="{{ product.name }}">#}
+{#                </div>#}
+{#                <div class="form-group">#}
+{#                    <label for="">Descrição</label>#}
+{#                    <input type="text" class="form-control" name="description" value="value="{{ product.description }}"">#}
+{#                </div>#}
+{#                <div class="form-group">#}
+{#                    <label for="">Conteúdo/Informações</label>#}
+{#                    <textarea class="form-control" name="body">{{ product.body }}"</textarea>#}
+{#                </div>#}
+{#                <div class="form-group">#}
+{#                    <label for="">Slug</label>#}
+{#                    <input type="text" class="form-control" name="slug" value="{{ product.slug }}">#}
+{#                </div>#}
+{#                <div class="form-group">#}
+{#                    <label for="">Preço</label>#}
+{#                    <input type="text" class="form-control" name="price" value="{{ product.price }}">#}
+{#                </div>#}
+{#                <div class="form-group">#}
+{#                    <button class="btn btn-lg btn-success">Atualizar Produto</button>#}
+{#                </div>#}
+{#            </form>#}
         </div>
 
     </div>
