@@ -24,9 +24,17 @@ class ProductController extends AbstractController
     /**
      * @Route("/create", name="create_products")
      */
-    public function create()
+    public function create(Request $request)
     {
         $form = $this->createForm(Form\ProductType::class, new Product());
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            $product = $form->getData();
+
+            dd($product);
+        }
 
         return $this->render('admin/product/create.html.twig', [
             'form' => $form->createView()
