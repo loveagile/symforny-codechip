@@ -135,9 +135,9 @@ class Product
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(?\DateTimeInterface $createdAt = null): self
     {
-        $this->createdAt = $createdAt;
+        $this->createdAt = new \DateTime('now', new \DateTimeZone('America/Sao_Paulo'));
 
         return $this;
     }
@@ -147,9 +147,9 @@ class Product
         return $this->updateAt;
     }
 
-    public function setUpdateAt(\DateTimeInterface $updateAt): self
+    public function setUpdateAt(?\DateTimeInterface $updateAt = null): self
     {
-        $this->updateAt = $updateAt;
+        $this->updateAt = new \DateTime('now', new \DateTimeZone('America/Sao_Paulo'));
 
         return $this;
     }

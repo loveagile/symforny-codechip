@@ -26,14 +26,21 @@ class ProductController extends AbstractController
      */
     public function create(Request $request)
     {
-        $form = $this->createForm(Form\ProductType::class, new Product());
+        $form = $this->createForm(Form\ProductType::class);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
             $product = $form->getData();
+            $product->setCreatedAt();
+            $product->setUpdateAt();
 
-            dd($product);
+            $this->getDoctrine()->getManager()->persist($product);
+            $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash('sucess', 'Produto criado com sucesso!');
+
+            return $this->redirectToRoute('admin_index_products');
         }
 
         return $this->render('admin/product/create.html.twig', [
@@ -41,37 +48,6 @@ class ProductController extends AbstractController
         ]);
 
         //return $this->render('admin/product/create.html.twig', compact('products'));
-    }
-
-    /**
-     * @Route("/store", name="store_products", methods={"POST"})
-     */
-    public function store(Request $request)
-    {
-        try {
-            $data = $request->request->all();
-
-            $product = new Product();
-
-            $product->setName($data['name']);
-            $product->setDescription($data['description']);
-            $product->setBody($data['body']);
-            $product->setSlug($data['slug']);
-            $product->setPrice($data['price']);
-            $product->setCreatedAt(new \DateTime('now', new \DateTimeZone('America/Sao_Paulo')));
-            $product->setUpdateAt(new \DateTime('now', new \DateTimeZone('America/Sao_Paulo')));
-
-            $manager = $this->getDoctrine()->getManager();
-            $manager->persist($product);
-            $manager->flush();
-
-            $this->addFlash('sucess', 'Produto criado com sucesso!');
-
-            return $this->redirectToRoute('admin_index_products');
-
-        } catch (\Exception $e) {
-            die($e->getMessage());
-        }
     }
 
     /**
