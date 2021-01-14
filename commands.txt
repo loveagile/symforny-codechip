@@ -108,4 +108,7 @@ Validadores Tipos Documentação https://symfony.com/doc/current/validation.html
 73-Forms Documentação https://symfony.com/doc/current/forms.html
 Form Types https://symfony.com/doc/current/reference/forms/types.html
 
+77-Twig Documentação Renderização Forms https://symfony.com/doc/current/form/form_customization.html
+Twig Referência Atributos Funções Render https://symfony.com/doc/current/form/form_customization.html#twig-reference-form-variables
+
 
