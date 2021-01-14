@@ -1,5 +1,17 @@
 {{ form_start(form, {'attr': {'novalidate': 'novalidate' }}) }}
-    {{ form_widget(form) }}
+
+    {{ form_row(form.name) }}
+
+    {{ form_row(form.description) }}
+
+    {{ form_row(form.body) }}
+
+    {{ form_row(form.price) }}
+
+    {{ form_row(form.category) }}
+
+    {{ form_row(form.slug) }}
 
     <button type="submit" class="btn btn-lg {{ buttonType }}">{{ buttonText }}</button>
+
 {{ form_end(form) }}
