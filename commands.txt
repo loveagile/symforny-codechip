@@ -102,6 +102,10 @@ php bin/console make:migration
 
 70-composer req validator
 
+72-Validadores Documentação https://symfony.com/doc/current/validation.html
+Validadores Tipos Documentação https://symfony.com/doc/current/validation.html#constraints
 
+73-Forms Documentação https://symfony.com/doc/current/forms.html
+Form Types https://symfony.com/doc/current/reference/forms/types.html
 
 
