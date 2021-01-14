@@ -23,27 +23,32 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Asserts\NotBlank()
+     * @Asserts\NotBlank(message="Este valor não deve ficar em branco.")
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Asserts\NotBlank(message="Este valor não deve ficar em branco.")
+     * @Asserts\Length(min=30, minMessage="Descrição deve ter pelos menos 30 caracteres!")
      */
     private $description;
 
     /**
      * @ORM\Column(type="text")
+     * @Asserts\NotBlank(message="Este valor não deve ficar em branco.")
      */
     private $body;
 
     /**
      * @ORM\Column(type="integer")
+     * @Asserts\NotBlank(message="Este valor não deve ficar em branco.")
      */
     private $price;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Asserts\NotBlank(message="Este valor não deve ficar em branco.")
      */
     private $slug;
 
@@ -59,6 +64,7 @@ class Product
 
     /**
      * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="product")
+     * @Asserts\NotBlank()
      */
     private $category;
 
