@@ -10,11 +10,9 @@
         </div>
 
         <div class="col-12">
-            {{ form_start(form, {'attr': {'novalidate': 'novalidate' }}) }}
-                {{ form_widget(form) }}
 
-                <button type="submit" class="btn btn-lg btn-success">Criar Produto</button>
-            {{ form_end(form) }}
+            {% include 'admin/product/_form.html.twig' with {'buttonText': 'Criar Produto', 'buttonType': 'btn-success'} %}
+
         </div>
 
     </div>
