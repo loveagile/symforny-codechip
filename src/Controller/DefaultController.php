@@ -18,9 +18,9 @@ class DefaultController extends AbstractController
     {
         $name = 'Lwcyano Will';
         $user = $this->getDoctrine()->getRepository(User::class)->find(1);
-        $order = $this->getDoctrine()->getRepository(Order::class)->find(1);
+        //$order = $this->getDoctrine()->getRepository(Order::class)->find(1);
         //dump($user->getOrder()->toArray());
-        $user->removeOrder($order);
+        //$user->removeOrder($order);
 
         $this->getDoctrine()->getManager()->flush();
 

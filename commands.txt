@@ -97,7 +97,10 @@ php bin/console make:migration
 
 62-composer req form
 
+63-php bin/console make:form
+>ProductType >Product
 
+70-composer req validator
 
 
 
