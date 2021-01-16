@@ -2,6 +2,8 @@
 
 namespace App\Controller\Admin;
 
+use App\Repository\ProductRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Product;
@@ -15,16 +17,16 @@ class ProductController extends AbstractController
     /**
      * @Route("/", name="index_products")
      */
-    public function index()
+    public function index(ProductRepository $productRepository)
     {
-        $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
+        $products = $productRepository->findAll();
         return $this->render('admin/product/index.html.twig', compact('products'));
     }
 
     /**
      * @Route("/create", name="create_products")
      */
-    public function create(Request $request)
+    public function create(Request $request, EntityManagerInterface $em)
     {
         $form = $this->createForm(Form\ProductType::class);
 
@@ -35,8 +37,8 @@ class ProductController extends AbstractController
             $product->setCreatedAt();
             $product->setUpdateAt();
 
-            $this->getDoctrine()->getManager()->persist($product);
-            $this->getDoctrine()->getManager()->flush();
+            $em->persist($product);
+            $em->flush();
 
             $this->addFlash('sucess', 'Produto criado com sucesso!');
 
@@ -53,9 +55,9 @@ class ProductController extends AbstractController
     /**
      * @Route("/edit/{product}", name="edit_products")
      */
-    public function edit($product, Request $request)
+    public function edit($product, Request $request, ProductRepository $productRepository, EntityManagerInterface $em)
     {
-        $product = $this->getDoctrine()->getRepository(Product::class)->find($product);
+        $product = $productRepository->find($product);
 
         $form = $this->createForm(Form\ProductType::class, $product);
 
@@ -65,7 +67,7 @@ class ProductController extends AbstractController
             $product = $form->getData();
             $product->setUpdateAt();
 
-            $this->getDoctrine()->getManager()->flush();
+            $em->flush();
 
             $this->addFlash('sucess', 'Produto atualizado com sucesso!');
 
@@ -110,10 +112,10 @@ class ProductController extends AbstractController
     /**
      * @Route("/remove/{product}", name="remove_products")
      */
-    public function remove($product)
+    public function remove($product, ProductRepository $productRepository)
     {
         try {
-            $product = $this->getDoctrine()->getRepository(Product::class)->find($product);
+            $product = $productRepository->find($product);
 
             $manager = $this->getDoctrine()->getManager();
             $manager->remove($product);
