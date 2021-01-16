@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Repository\ProductRepository;
+use App\Service\UploadService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,8 +18,9 @@ class ProductController extends AbstractController
     /**
      * @Route("/", name="index_products")
      */
-    public function index(ProductRepository $productRepository)
+    public function index(ProductRepository $productRepository, UploadService $uploadService)
     {
+        dump($uploadService->upload());
         $products = $productRepository->findAll();
         return $this->render('admin/product/index.html.twig', compact('products'));
     }
