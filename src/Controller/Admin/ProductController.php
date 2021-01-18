@@ -8,7 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Product;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\{Request, Response};
 use App\Form;
 /**
  * @Route("/admin/products", name="admin_")
@@ -25,6 +25,15 @@ class ProductController extends AbstractController
         $products = $productRepository->findAll();
 
         return $this->render('admin/product/index.html.twig', compact('products'));
+    }
+
+    /**
+     * @Route("/upload")
+     */
+    public function upload(Request $request)
+    {
+        dd($request->files->get('photos'));
+        return new Response('Upload');
     }
 
     /**

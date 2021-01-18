@@ -1,3 +1,11 @@
+<form action="/admin/products/upload" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="">Escolha as fotos do produto</label>
+        <input class="form-control" type="file" name="photos[]" multiple>
+    </div>
+    <button class="btn btn-lg btn-success">Enviar fotos</button>
+</form>
+
 {{ form_start(form, {'attr': {'novalidate': 'novalidate' }}) }}
 
     {{ form_row(form.name) }}
