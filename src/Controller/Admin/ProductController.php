@@ -34,7 +34,14 @@ class ProductController extends AbstractController
     {
         /**@var UploadedFile[] $photos */
         $photos = $request->files->get('photos');
-        dd($photos[0]->guessExtension());
+        $folder = $this->getParameter('upload_dir') . '/products';
+
+        foreach ($photos as $photo) {
+            $newImageName = sha1($photo->getClientOriginalName()) . uniqid() . '.' . $photo->guessExtension();
+
+                $photo->move($folder, $newImageName);
+        }
+
         return new Response('Upload');
     }
 
