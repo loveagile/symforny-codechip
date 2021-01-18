@@ -18,8 +18,7 @@ class UploadService
                 $this->move($file, $targetFolder);
             }
 
-        }
-        else {
+        } else {
             $this->move($files, $targetFolder);
         }
 

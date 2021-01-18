@@ -18,26 +18,24 @@ class ProductController extends AbstractController
     /**
      * @Route("/", name="index_products")
      */
-    public function index(ProductRepository $productRepository, UploadService $uploadService)
+    public function index(ProductRepository $productRepository)
     {
-        dump($uploadService->upload());
-
         $products = $productRepository->findAll();
 
         return $this->render('admin/product/index.html.twig', compact('products'));
     }
 
-    /**
-     * @Route("/upload")
-     */
-    public function upload(Request $request, UploadService $uploadService)
-    {
-        /**@var UploadedFile[] $photos */
-        $photos = $request->files->get('photos');
-        $uploadService->upload($photos, 'products');
-
-        return new Response('Upload');
-    }
+//    /**
+//     * @Route("/upload")
+//     */
+//    public function upload(Request $request, UploadService $uploadService)
+//    {
+//        /**@var UploadedFile[] $photos */
+//        $photos = $request->files->get('photos');
+//        $uploadService->upload($photos, 'products');
+//
+//        return new Response('Upload');
+//    }
 
     /**
      * @Route("/create", name="create_products")
@@ -49,6 +47,7 @@ class ProductController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            dd($form['photos']->getData());
             $product = $form->getData();
             $product->setCreatedAt();
             $product->setUpdateAt();
