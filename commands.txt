@@ -125,4 +125,13 @@ php bin/console debug:container(lista todos serviços do container)
 
 91-composer require symfony/mime
 
+94-php bin/console make:entity ProductPhoto
+>photo >enter >no >createdAt >enter >enter >updatedAt >enter >enter
+>product >relation >Product >ManyToOne >no >yes >enter >yes
+
+-php bin/console make:migration
+
+-php bin/console doctrine:migrations:migrate
+
+
 
