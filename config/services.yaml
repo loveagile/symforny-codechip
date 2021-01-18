@@ -10,6 +10,8 @@ services:
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        bind:
+            string $uploadDir: '%upload_dir%'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -29,10 +31,12 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
-    App\Service\UploadService:
-        arguments:
-            '$uploadDir': '%upload_dir%'
-            
+
+#    App\Service\UploadService:
+#        autowire: false
+#        bind:
+#            Psr\Log\LoggerInterface $logger: '@monolog.logger'
+
     app.uploadservice:
         alias: 'App\Service\UploadService'
         public: true

@@ -121,4 +121,7 @@ php bin/console debug:container(lista todos serviços do container)
 86-php bin/console debug:container --parameters (lista paramentros disponível no container)
 -php bin/console debug:container --parameter=upload_dir
 
+87-php bin/console debug:autowiring log (verifica os serviços relacionado a log)
+
+
 
