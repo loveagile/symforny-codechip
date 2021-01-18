@@ -118,4 +118,7 @@ php bin/console debug:container(lista todos serviços do container)
 
 85-php bin/console debug:container doctrine
 
+86-php bin/console debug:container --parameters (lista paramentros disponível no container)
+-php bin/console debug:container --parameter=upload_dir
+
 
