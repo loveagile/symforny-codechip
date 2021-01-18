@@ -21,7 +21,7 @@ class ProductController extends AbstractController
      */
     public function index(ProductRepository $productRepository, UploadService $uploadService, ContainerInterface $container)
     {
-        $container->get('App\Service\UploadService');
+        $container->get('app.uploadservice');
         dump($uploadService->upload());
         $products = $productRepository->findAll();
         return $this->render('admin/product/index.html.twig', compact('products'));
