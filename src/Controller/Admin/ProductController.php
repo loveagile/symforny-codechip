@@ -30,17 +30,11 @@ class ProductController extends AbstractController
     /**
      * @Route("/upload")
      */
-    public function upload(Request $request)
+    public function upload(Request $request, UploadService $uploadService)
     {
         /**@var UploadedFile[] $photos */
         $photos = $request->files->get('photos');
-        $folder = $this->getParameter('upload_dir') . '/products';
-
-        foreach ($photos as $photo) {
-            $newImageName = sha1($photo->getClientOriginalName()) . uniqid() . '.' . $photo->guessExtension();
-
-                $photo->move($folder, $newImageName);
-        }
+        $uploadService->upload($photos, 'products');
 
         return new Response('Upload');
     }
