@@ -8,7 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Product;
-use Symfony\Component\HttpFoundation\{Request, Response};
+use Symfony\Component\HttpFoundation\{File\UploadedFile, Request, Response};
 use App\Form;
 /**
  * @Route("/admin/products", name="admin_")
@@ -32,7 +32,9 @@ class ProductController extends AbstractController
      */
     public function upload(Request $request)
     {
-        dd($request->files->get('photos'));
+        /**@var UploadedFile[] $photos */
+        $photos = $request->files->get('photos');
+        dd($photos[0]->guessExtension());
         return new Response('Upload');
     }
 
