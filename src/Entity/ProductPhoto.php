@@ -34,7 +34,7 @@ class ProductPhoto
     private $updatedAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="productPhotos")
+     * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="productPhotos", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $product;

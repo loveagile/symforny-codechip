@@ -13,22 +13,28 @@ class UploadService
     public function upload($files, $targetFolder)
     {
         if (is_array($files)) {
-
+            $newFiles = [];
             foreach ($files as $file) {
-                $this->move($file, $targetFolder);
+                $newFiles = $this->move($file, $targetFolder);
             }
 
+            return $newFiles;
+
         } else {
-            $this->move($files, $targetFolder);
+            return $this->move($files, $targetFolder);
         }
 
     }
 
     private function move($file, $targetFolder)
     {
+        $newFileName = $this->makeNewName($file);
         $file->move(
             $this->folder . '/' . $targetFolder,
-            $this->makeNewName($file));
+            $newFileName
+        );
+
+        return $newFileName;
     }
 
     private function makeNewName($file)

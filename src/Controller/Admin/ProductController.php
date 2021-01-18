@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\ProductPhoto;
 use App\Repository\ProductRepository;
 use App\Service\UploadService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -40,17 +41,34 @@ class ProductController extends AbstractController
     /**
      * @Route("/create", name="create_products")
      */
-    public function create(Request $request, EntityManagerInterface $em)
+    public function create(Request $request, EntityManagerInterface $em, UploadService $uploadService)
     {
         $form = $this->createForm(Form\ProductType::class);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            dd($form['photos']->getData());
+
             $product = $form->getData();
             $product->setCreatedAt();
             $product->setUpdateAt();
+
+            $photosUpload = $form['photos']->getData();
+
+            if ($photosUpload ) {
+                $photosUpload = $uploadService->upload($photosUpload, 'products');
+
+                foreach($photosUpload as $photo) {
+                    $productPhoto = new ProductPhoto();
+                    $productPhoto->setPhoto($photo);
+                    $productPhoto->setCreatedAt(new \DateTime('now', new \DateTimeZone('America/Sao_Paulo')));
+                    $productPhoto->setUpdatedAt(new \DateTime('now', new \DateTimeZone('America/Sao_Paulo')));
+
+                    $product->addProductPhoto($productPhoto);
+                }
+
+                dd($photosUpload);
+            }
 
             $em->persist($product);
             $em->flush();
