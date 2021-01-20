@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Asserts;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
@@ -15,6 +16,8 @@ use Symfony\Component\Validator\Constraints as Asserts;
  */
 class Product
 {
+    use TimestampableEntity;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -52,16 +55,6 @@ class Product
      * @Gedmo\Slug(fields={"name"})
      */
     private $slug;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $createdAt;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $updateAt;
 
     /**
      * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="product")
@@ -141,30 +134,6 @@ class Product
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(?\DateTimeInterface $createdAt = null): self
-    {
-        $this->createdAt = new \DateTime('now', new \DateTimeZone('America/Sao_Paulo'));
-
-        return $this;
-    }
-
-    public function getUpdateAt(): ?\DateTimeInterface
-    {
-        return $this->updateAt;
-    }
-
-    public function setUpdateAt(?\DateTimeInterface $updateAt = null): self
-    {
-        $this->updateAt = new \DateTime('now', new \DateTimeZone('America/Sao_Paulo'));
 
         return $this;
     }

@@ -140,6 +140,9 @@ php bin/console debug:container(lista todos serviços do container)
 101-composer req stof/doctrine-extensions-bundle
 -php bin/console config:dump stof_doctrine_extensions (lista extensões de configuração no arquivo stof_doctrine)
 
+103-php bin/console doctrine:schema:updat --dump-sql(verificar se haverá alteração no banco)
+-pnp bin/console make:migration
+-pnp bin/console doctrine:migrations:migrate
 
 
 

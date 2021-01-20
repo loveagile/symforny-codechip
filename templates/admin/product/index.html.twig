@@ -18,6 +18,7 @@
                     <th>ID</th>
                     <th>Name</th>
                     <th>Criado Em</th>
+                    <th>Atualizado Em</th>
                     <th>Ações</th>
                 </tr>
             </thead>
@@ -27,6 +28,7 @@
                         <td>{{ product.getId() }}</td>
                         <td>{{ product.getName() }}</td>
                         <td>{{ product.getCreatedAt()|date('d/m/Y H:i:s') }}</td>
+                        <td>{{ product.getUpdatedAt()|date('d/m/Y H:i:s') }}</td>
                         <td >
                             <a href="{{ path('admin_edit_products', {product: product.id}) }}" class="btn btn-sm btn-primary">Editar</a>
                             <a href="{{ path('admin_remove_products', {product: product.id}) }}" class="btn btn-sm btn-danger">Remover</a>

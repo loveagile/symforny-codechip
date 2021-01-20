@@ -11,11 +11,13 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Product;
 use Symfony\Component\HttpFoundation\{File\UploadedFile, Request, Response};
 use App\Form;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 /**
  * @Route("/admin/products", name="admin_")
  */
 class ProductController extends AbstractController
 {
+    use TimestampableEntity;
     /**
      * @Route("/", name="index_products")
      */
@@ -50,8 +52,6 @@ class ProductController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $product = $form->getData();
-            $product->setCreatedAt();
-            $product->setUpdateAt();
 
             $photosUpload = $form['photos']->getData();
 
@@ -83,14 +83,13 @@ class ProductController extends AbstractController
     public function edit($product, Request $request, ProductRepository $productRepository, EntityManagerInterface $em, UploadService $uploadService)
     {
         $product = $productRepository->find($product);
-        dd($product->getSlug());
+
         $form = $this->createForm(Form\ProductType::class, $product);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
             $product = $form->getData();
-            $product->setUpdateAt();
 
             $photosUpload = $form['photos']->getData();
 
