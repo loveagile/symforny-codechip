@@ -83,7 +83,7 @@ class ProductController extends AbstractController
     public function edit($product, Request $request, ProductRepository $productRepository, EntityManagerInterface $em, UploadService $uploadService)
     {
         $product = $productRepository->find($product);
-
+        dd($product->getSlug());
         $form = $this->createForm(Form\ProductType::class, $product);
 
         $form->handleRequest($request);

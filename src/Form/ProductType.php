@@ -26,7 +26,6 @@ class ProductType extends AbstractType
             ->add('price', TextType::class, [
                 'label'=>'Preço'
             ])
-            ->add('slug')
             ->add('photos', FileType::class, [
                 'mapped' => false,
                 'multiple' => true
