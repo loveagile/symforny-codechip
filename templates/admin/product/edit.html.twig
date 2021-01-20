@@ -22,6 +22,7 @@
                 {% for photo in productPhotos %}
                     <div class="col-3 mb-3">
                         <img src="{{ '/uploads/products/' ~ photo.photo }}" alt="" class="img-fluid">
+                        <a href="{{ path('admin_product_photo_remove', {'productPhoto': photo.id }) }}" class="btn btn-sm btn-danger">Remover</a>
                     </div>
                 {% endfor %}
             </div>
