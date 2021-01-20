@@ -137,5 +137,9 @@ php bin/console debug:container(lista todos serviços do container)
 
 99-php bin/console make:controller ProductPhotoController
 
+101-composer req stof/doctrine-extensions-bundle
+-php bin/console config:dump stof_doctrine_extensions (lista extensões de configuração no arquivo stof_doctrine)
+
+
 
 
