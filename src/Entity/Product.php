@@ -200,6 +200,14 @@ class Product
         return $this->productPhotos;
     }
 
+    public function addManyProductPhoto(array $productPhotoEntities)
+    {
+        foreach ($productPhotoEntities as $entity) {
+            $this->addProductPhoto($entity);
+        }
+        return $this;
+    }
+
     public function addProductPhoto(ProductPhoto $productPhoto): self
     {
         if (!$this->productPhotos->contains($productPhoto)) {

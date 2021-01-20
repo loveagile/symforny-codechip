@@ -15,7 +15,7 @@ class UploadService
         if (is_array($files)) {
             $newFiles = [];
             foreach ($files as $file) {
-                $newFiles = $this->move($file, $targetFolder);
+                $newFiles[] = $this->move($file, $targetFolder);
             }
 
             return $newFiles;

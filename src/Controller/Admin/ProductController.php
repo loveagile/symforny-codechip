@@ -55,19 +55,11 @@ class ProductController extends AbstractController
 
             $photosUpload = $form['photos']->getData();
 
-            if ($photosUpload ) {
+            if ($photosUpload) {
                 $photosUpload = $uploadService->upload($photosUpload, 'products');
+                $photosUpload = $this->makeProductPhotoEntities($photosUpload);
 
-                foreach($photosUpload as $photo) {
-                    $productPhoto = new ProductPhoto();
-                    $productPhoto->setPhoto($photo);
-                    $productPhoto->setCreatedAt(new \DateTime('now', new \DateTimeZone('America/Sao_Paulo')));
-                    $productPhoto->setUpdatedAt(new \DateTime('now', new \DateTimeZone('America/Sao_Paulo')));
-
-                    $product->addProductPhoto($productPhoto);
-                }
-
-                dd($photosUpload);
+                $product->addManyProductPhoto($photosUpload);
             }
 
             $em->persist($product);
@@ -88,7 +80,7 @@ class ProductController extends AbstractController
     /**
      * @Route("/edit/{product}", name="edit_products")
      */
-    public function edit($product, Request $request, ProductRepository $productRepository, EntityManagerInterface $em)
+    public function edit($product, Request $request, ProductRepository $productRepository, EntityManagerInterface $em, UploadService $uploadService)
     {
         $product = $productRepository->find($product);
 
@@ -99,6 +91,15 @@ class ProductController extends AbstractController
         if ($form->isSubmitted()) {
             $product = $form->getData();
             $product->setUpdateAt();
+
+            $photosUpload = $form['photos']->getData();
+
+            if ($photosUpload) {
+                $photosUpload = $uploadService->upload($photosUpload, 'products');
+                $photosUpload = $this->makeProductPhotoEntities($photosUpload);
+                dump($photosUpload);
+                $product->addManyProductPhoto($photosUpload);
+            }
 
             $em->flush();
 
@@ -161,5 +162,20 @@ class ProductController extends AbstractController
         } catch (\Exception $e) {
             die($e->getMessage());
         }
+    }
+
+    private function makeProductPhotoEntities($uploadedPhotos)
+    {
+        $entities = [];
+
+        foreach($uploadedPhotos as $photo) {
+            $productPhoto = new ProductPhoto();
+            $productPhoto->setPhoto($photo);
+            $productPhoto->setCreatedAt(new \DateTime('now', new \DateTimeZone('America/Sao_Paulo')));
+            $productPhoto->setUpdatedAt(new \DateTime('now', new \DateTimeZone('America/Sao_Paulo')));
+            $entities[] = $productPhoto;
+        }
+
+        return $entities;
     }
 }
