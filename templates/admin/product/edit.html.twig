@@ -15,5 +15,17 @@
 
         </div>
 
+        <div class="col-12 mt-5">
+            <h3>Imagens Produto</h3>
+            <hr>
+            <div class="row">
+                {% for photo in productPhotos %}
+                    <div class="col-3 mb-3">
+                        <img src="{{ '/uploads/products/' ~ photo.photo }}" alt="" class="img-fluid">
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
     </div>
 {% endblock %}
