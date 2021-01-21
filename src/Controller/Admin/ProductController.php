@@ -17,7 +17,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
  */
 class ProductController extends AbstractController
 {
-    use TimestampableEntity;
+
     /**
      * @Route("/", name="index_products")
      */
