@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Admin;
 
 use App\Entity\ProductPhoto;
-use Doctrine\ORM\EntityManagerI;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ProductPhotoController extends AbstractController
@@ -25,7 +23,7 @@ class ProductPhotoController extends AbstractController
         if(file_exists($realImage))
             unlink($realImage);
 
-        return $this->redirectToRoute('admin_edit_products', ['product' => $product]);
+        return $this->redirectToRoute('admin_products_edit', ['product' => $product]);
 
     }
 }

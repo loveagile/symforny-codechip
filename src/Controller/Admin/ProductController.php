@@ -11,15 +11,15 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Product;
 use Symfony\Component\HttpFoundation\{File\UploadedFile, Request, Response};
 use App\Form;
-use Gedmo\Timestampable\Traits\TimestampableEntity;
+
 /**
- * @Route("/admin/products", name="admin_")
+ * @Route("/admin/products", name="admin_products_")
  */
 class ProductController extends AbstractController
 {
 
     /**
-     * @Route("/", name="index_products")
+     * @Route("/", name="index")
      */
     public function index(ProductRepository $productRepository)
     {
@@ -41,7 +41,7 @@ class ProductController extends AbstractController
 //    }
 
     /**
-     * @Route("/create", name="create_products")
+     * @Route("/create", name="create")
      */
     public function create(Request $request, EntityManagerInterface $em, UploadService $uploadService)
     {
@@ -65,9 +65,9 @@ class ProductController extends AbstractController
             $em->persist($product);
             $em->flush();
 
-            $this->addFlash('sucess', 'Produto criado com sucesso!');
+            $this->addFlash('success', 'Produto criado com sucesso!');
 
-            return $this->redirectToRoute('admin_index_products');
+            return $this->redirectToRoute('admin_products_index');
         }
 
         return $this->render('admin/product/create.html.twig', [
@@ -78,12 +78,10 @@ class ProductController extends AbstractController
     }
 
     /**
-     * @Route("/edit/{product}", name="edit_products")
+     * @Route("/edit/{product}", name="edit")
      */
-    public function edit($product, Request $request, ProductRepository $productRepository, EntityManagerInterface $em, UploadService $uploadService)
+    public function edit(Product $product, Request $request, EntityManagerInterface $em, UploadService $uploadService)
     {
-        $product = $productRepository->find($product);
-
         $form = $this->createForm(Form\ProductType::class, $product);
 
         $form->handleRequest($request);
@@ -102,9 +100,9 @@ class ProductController extends AbstractController
 
             $em->flush();
 
-            $this->addFlash('sucess', 'Produto atualizado com sucesso!');
+            $this->addFlash('success', 'Produto atualizado com sucesso!');
 
-            return $this->redirectToRoute('admin_edit_products', ['product' => $product->getId()]);
+            return $this->redirectToRoute('admin_products_edit', ['product' => $product->getId()]);
         }
 
         return $this->render('admin/product/edit.html.twig', [
@@ -114,50 +112,18 @@ class ProductController extends AbstractController
     }
 
     /**
-     * @Route("/update/{product}", name="update_products", methods={"POST"})
+     * @Route("/remove/{product}", name="remove")
      */
-    public function update($product, Request $request)
+    public function remove(Product $product)
     {
         try {
-            $data = $request->request->all();
-            $product = $this->getDoctrine()->getRepository(Product::class)->find($product);
-
-            $product->setName($data['name']);
-            $product->setDescription($data['description']);
-            $product->setBody($data['body']);
-            $product->setSlug($data['slug']);
-            $product->setPrice($data['price']);
-
-            $product->setUpdateAt(new \DateTime('now', new \DateTimeZone('America/Sao_Paulo')));
-
-            $manager = $this->getDoctrine()->getManager();
-            $manager->persist($product);
-            $manager->flush();
-
-            $this->addFlash('warning', 'Produto atualizado com sucesso!');
-
-            return $this->redirectToRoute('admin_edit_products', ['product' => $product->getId()]);
-
-        } catch (\Exception $e) {
-            die($e->getMessage());
-        }
-    }
-
-    /**
-     * @Route("/remove/{product}", name="remove_products")
-     */
-    public function remove($product, ProductRepository $productRepository)
-    {
-        try {
-            $product = $productRepository->find($product);
-
             $manager = $this->getDoctrine()->getManager();
             $manager->remove($product);
             $manager->flush();
 
             $this->addFlash('danger', 'Produto removido com sucesso!');
 
-            return $this->redirectToRoute('admin_index_products');
+            return $this->redirectToRoute('admin_products_index');
 
         } catch (\Exception $e) {
             die($e->getMessage());

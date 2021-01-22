@@ -7,7 +7,7 @@
     <div class="col-12">
         <div class="d-flex justify-content-between align-items-center">
             <h1>Produtos</h1>
-            <a href="{{ path('admin_create_products') }}" class="btn btn-success">Criar produto</a>
+            <a href="{{ path('admin_products_create') }}" class="btn btn-success">Criar produto</a>
         </div>
         <hr>
     </div>
@@ -30,8 +30,8 @@
                         <td>{{ product.getCreatedAt()|date('d/m/Y H:i:s') }}</td>
                         <td>{{ product.getUpdatedAt()|date('d/m/Y H:i:s') }}</td>
                         <td >
-                            <a href="{{ path('admin_edit_products', {product: product.id}) }}" class="btn btn-sm btn-primary">Editar</a>
-                            <a href="{{ path('admin_remove_products', {product: product.id}) }}" class="btn btn-sm btn-danger">Remover</a>
+                            <a href="{{ path('admin_products_edit', {product: product.id}) }}" class="btn btn-sm btn-primary">Editar</a>
+                            <a href="{{ path('admin_products_remove', {product: product.id}) }}" class="btn btn-sm btn-danger">Remover</a>
                         </td>
                     </tr>
                 {% endfor %}

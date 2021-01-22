@@ -462,7 +462,7 @@ class ComposerStaticInit50b836cf4d9fcaae8b1698e35900adf4
     public static $classMap = array (
         'App\\Controller\\Admin\\ProductController' => __DIR__ . '/../..' . '/src/Controller/Admin/ProductController.php',
         'App\\Controller\\DefaultController' => __DIR__ . '/../..' . '/src/Controller/DefaultController.php',
-        'App\\Controller\\ProductPhotoController' => __DIR__ . '/../..' . '/src/Controller/ProductPhotoController.php',
+        'App\\Controller\\ProductPhotoController' => __DIR__ . '/../..',
         'App\\Entity\\Address' => __DIR__ . '/../..' . '/src/Entity/Address.php',
         'App\\Entity\\Category' => __DIR__ . '/../..' . '/src/Entity/Category.php',
         'App\\Entity\\Order' => __DIR__ . '/../..' . '/src/Entity/Order.php',
