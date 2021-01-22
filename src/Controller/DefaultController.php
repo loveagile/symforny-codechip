@@ -78,7 +78,7 @@ class DefaultController extends AbstractController
         $manager->persist($address);
         $manager->flush();*/
 
-        return $this->render('login.html.twig', compact('name','user'));
+        return $this->render('index.html.twig', compact('name','user'));
     }
 
     /**

@@ -11,6 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Product;
 use Symfony\Component\HttpFoundation\{File\UploadedFile, Request, Response};
 use App\Form;
+use Symfony\Component\Validator\Constraints\All;
 
 /**
  * @Route("/admin/products", name="admin_products_")
@@ -25,7 +26,7 @@ class ProductController extends AbstractController
     {
         $products = $productRepository->findAll();
 
-        return $this->render('admin/product/login.html.twig', compact('products'));
+        return $this->render('admin/product/index.html.twig', compact('products'));
     }
 
 //    /**
