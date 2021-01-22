@@ -29,7 +29,17 @@ class ProductType extends AbstractType
             ])
             ->add('photos', FileType::class, [
                 'mapped' => false,
-                'multiple' => true
+                'multiple' => true,
+                'constraints' => [
+                    new Assert\All(
+                        [
+                            'constraints' => [
+                                new Assert\Image([
+                                    'mimeTypesMessage' => 'Este arquivo não é uma imagem válida.'
+                                ])
+                            ]]
+                    )
+                ]
             ])
             ->add('category', null, [
                 'label'=>'Categorias',
