@@ -53,7 +53,7 @@ final class MakeController extends AbstractMaker
         );
 
         $noTemplate = $input->getOption('no-template');
-        $templateName = Str::asFilePath($controllerClassNameDetails->getRelativeNameWithoutSuffix()).'/index.html.twig';
+        $templateName = Str::asFilePath($controllerClassNameDetails->getRelativeNameWithoutSuffix()).'/login.html.twig';
         $controllerPath = $generator->generateController(
             $controllerClassNameDetails->getFullName(),
             'controller/Controller.tpl.php',

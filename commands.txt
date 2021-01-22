@@ -157,5 +157,6 @@ php bin/console debug:container(lista todos serviços do container)
 111-php bin/console doctrine:schema:update --dump-sql
 -php bin/console make:migration
 
+113-php bin/console make:controller SecurityController
 
 

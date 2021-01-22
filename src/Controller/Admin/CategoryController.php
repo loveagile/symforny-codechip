@@ -22,7 +22,7 @@ class CategoryController extends AbstractController
     {
         $categories = $categoryRepository->findAll();
 
-        return $this->render('admin/category/index.html.twig', compact('categories'));
+        return $this->render('admin/category/login.html.twig', compact('categories'));
     }
 
     /**
