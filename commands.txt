@@ -154,4 +154,8 @@ php bin/console debug:container(lista todos serviços do container)
 
 110-composer req security
 
+111-php bin/console doctrine:schema:update --dump-sql
+-php bin/console make:migration
+
+
 
