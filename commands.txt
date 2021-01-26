@@ -159,4 +159,8 @@ php bin/console debug:container(lista todos serviços do container)
 
 113-php bin/console make:controller SecurityController
 
+114-php bin/console(lista todos comandos possíveis.)
+-php bin/console security:encode-pass 12345678
+
+
 
