@@ -26,7 +26,7 @@
     </button>
     <div class="collapse navbar-collapse justify-content-end">
         <ul class="navbar-nav px-3">
-            {% if app.user %}
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                 <li class="nav-item text-nowrap">
                     <a class="nav-link" href="#">{{ app.User.getFirstName() }}</a>
                 </li>
@@ -49,15 +49,13 @@
                     <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                         <span>Administrativo</span>
                     </h6>
-                    {% if is_granted('ROLE_EDITOR') %}
+                    {% if is_granted('ROLE_ADMIN') %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('admin_products_index') }}">
                             <span data-feather="file"></span>
                             Produtos
                         </a>
                     </li>
-                    {% endif %}
-                    {% if is_granted('ROLE_USER') %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('admin_categories_index') }}">
                             <span data-feather="file"></span>
