@@ -62,6 +62,7 @@ class User implements UserInterface
     public function __construct()
     {
         $this->order = new ArrayCollection();
+        $this->roles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -165,13 +166,19 @@ class User implements UserInterface
         return $this;
     }
 
-    public function setRoles($roles)
+    /**
+     * @return Collection|Roles[]
+     */
+    public function setRoles($roles): Collection
     {
         $this->roles = $roles;
         return $this;
     }
 
-    public function getRoles()
+    /**
+     * @return Collection|Roles[]
+     */
+    public function getRoles(): Collection
     {
         $roles = $this->roles;
         //$roles[] = 'ROLE_USER';
@@ -193,4 +200,7 @@ class User implements UserInterface
         // TODO: Implement eraseCredentials() method.
     }
 
+    public function __toString() {
+        return 'ok';
+    }
 }

@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Usuários{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <h1>Categorias</h1>
+                <a href="{{ path('admin_users_create') }}" class="btn btn-success">Criar Usuário</a>
+            </div>
+            <hr>
+        </div>
+        <div class="col-12">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Regras</th>
+                    <th>Criado Em</th>
+                    <th>Atualizado Em</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.getId() }}</td>
+                        <td>{{ user.firstName }}</td>
+                        <td>{{ user.roles }}</td>
+                        <td>{{ user.getCreatedAt()|date('d/m/Y H:i:s') }}</td>
+                        <td>{{ user.getUpdatedAt()|date('d/m/Y H:i:s') }}</td>
+                        <td >
+                            <a href="{{ path('admin_users_edit', {user: user.id}) }}" class="btn btn-sm btn-primary">Editar</a>
+                            <a href="{{ path('admin_users_remove', {user: user.id}) }}" class="btn btn-sm btn-danger">Remover</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
