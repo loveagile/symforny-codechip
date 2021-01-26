@@ -1,0 +1,15 @@
+{{ form_start(form, {'attr': {'novalidate': 'novalidate' }}) }}
+
+    {{ form_row(form.firstName) }}
+
+    {{ form_row(form.lastName) }}
+
+    {{ form_row(form.email) }}
+
+    {{ form_row(form.password, {'attr': {'class': 'password'}}) }}
+
+    {{ form_row(form.roles) }}
+
+    <button type="submit" class="btn btn-lg {{ buttonType }}">{{ buttonText }}</button>
+
+{{ form_end(form) }}
