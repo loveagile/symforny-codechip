@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <h1>Criar Usuário</h1>
+            </div>
+            <hr>
+        </div>
+
+        <div class="col-12">
+
+            {% include 'admin/user/_form.html.twig' with {'buttonText': 'Criar Usuário', 'buttonType': 'btn-success'} %}
+
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+<script src="https://github.com/codermarcos/simple-mask-money/releases/download/v3.0.0/simple-mask-money.js"></script>
+<script src="{{ asset('/js/use-mask-money.js') }}"></script>
+{% endblock %}

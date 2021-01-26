@@ -19,7 +19,6 @@ class UserType extends AbstractType
             ->add('roles')
             ->add('createdAt')
             ->add('updatedAt')
-            ->add('address')
         ;
     }
 

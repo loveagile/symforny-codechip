@@ -4,7 +4,10 @@ namespace App\Controller\Admin;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
+use App\Service\UploadService;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -31,7 +34,33 @@ class UserController extends AbstractController
     /**
      * @Route("/", name="create")
      */
-    public function create(): Response
+    public function create(Request $request, EntityManagerInterface $em)
+    {
+        $form = $this->createForm(UserType::class);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $user = $form->getData();
+
+            $em->persist($user);
+            $em->flush();
+
+            $this->addFlash('success', 'Usuário criado com sucesso!');
+
+            return $this->redirectToRoute('admin_users_index');
+        }
+
+        return $this->render('admin/user/create.html.twig', [
+            'form' => $form->createView()
+        ]);
+
+        //return $this->render('admin/product/create.html.twig', compact('products'));
+    }
+
+    public function test(): Response
+
     {
         return $this->render('admin/user/index.html.twig', [
             'controller_name' => 'UserController',
