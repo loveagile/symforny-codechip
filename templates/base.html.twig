@@ -30,10 +30,10 @@
                 <li class="nav-item text-nowrap">
                     <a class="nav-link" href="#">{{ app.User.getFirstName() }}</a>
                 </li>
+                <li class="nav-item text-nowrap">
+                    <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
+                </li>
             {% endif %}
-            <li class="nav-item text-nowrap">
-                <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
-            </li>
         </ul>
     </div>
 
@@ -49,19 +49,22 @@
                     <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                         <span>Administrativo</span>
                     </h6>
-
+                    {% if is_granted('ROLE_EDITOR') %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('admin_products_index') }}">
                             <span data-feather="file"></span>
                             Produtos
                         </a>
                     </li>
+                    {% endif %}
+                    {% if is_granted('ROLE_USER') %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('admin_categories_index') }}">
                             <span data-feather="file"></span>
                             Categorias
                         </a>
                     </li>
+                    {% endif %}
                 </ul>
             </div>
         </nav>
