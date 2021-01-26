@@ -19,21 +19,24 @@
     <meta name="theme-color" content="#563d7c">
 </head>
 <body>
-<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+<nav class="navbar navbar-dark navbar-expand-lg sticky-top bg-dark flex-md-nowrap p-0 shadow">
     <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">Gerenciador Loja</a>
     <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <ul class="navbar-nav px-3">
-        {% if app.user %}
-        <li class="nav-item text-nowrap">
-            <a class="nav-link" href="#">{{ app.User.getFirstName() }}</a>
-        </li>
-        {% endif %}
-        <li class="nav-item text-nowrap">
-            <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
-        </li>
-    </ul>
+    <div class="collapse navbar-collapse justify-content-end">
+        <ul class="navbar-nav px-3">
+            {% if app.user %}
+                <li class="nav-item text-nowrap">
+                    <a class="nav-link" href="#">{{ app.User.getFirstName() }}</a>
+                </li>
+            {% endif %}
+            <li class="nav-item text-nowrap">
+                <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
+            </li>
+        </ul>
+    </div>
+
 </nav>
 
 <div class="container-fluid">

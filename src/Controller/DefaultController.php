@@ -12,7 +12,7 @@ use App\Entity\{User, Address, Order};
 class DefaultController extends AbstractController
 {
     /**
-     * @Route("/", name="default")
+     * @Route("/", name="home")
      */
     public function index(): Response
     {
