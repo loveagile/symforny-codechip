@@ -2,151 +2,105 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\User;
 use App\Repository\UserRepository;
-use App\Service\UploadService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\User;
+use App\Form\UserType;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
- * Class UserController
- * @package App\Controller\Admin
  * @Route("/admin/users", name="admin_users_")
  */
 class UserController extends AbstractController
 {
-    /**
-     * @Route("/", name="index")
-     */
-    public function index(UserRepository $userRepository)
-    {
-        $users = $userRepository->findAll();
+	/**
+	 * @Route("/", name="index")
+	 */
+	public function index(UserRepository $userRepository)
+	{
+		$users = $userRepository->findAll();
 
-        //$user = $this->getDoctrine()->getRepository(User::class)->findAll();
-        //$this->getDoctrine()->getManager()->flush();
+		return $this->render('admin/user/index.html.twig', compact('users'));
+	}
 
-        return $this->render('admin/user/index.html.twig', compact('users'));
-    }
+	/**
+	 * @Route("/create", name="create")
+	 */
+	public function create(Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder)
+	{
+		$form = $this->createForm(UserType::class);
 
-    /**
-     * @Route("/", name="create")
-     */
-    public function create(Request $request, EntityManagerInterface $em)
-    {
-        $form = $this->createForm(UserType::class);
+		$form->handleRequest($request);
 
-        $form->handleRequest($request);
+		if($form->isSubmitted() && $form->isValid()) {
 
-        if ($form->isSubmitted() && $form->isValid()) {
+			$password = $passwordEncoder->encodePassword(new User(), $form['password']->getData());
 
-            $user = $form->getData();
+			$user = $form->getData();
+			$user->setPassword($password);
 
-            $em->persist($user);
-            $em->flush();
+			$em->persist($user);
+			$em->flush();
 
-            $this->addFlash('success', 'Usuário criado com sucesso!');
+			$this->addFlash('success', 'Usuário criado com sucesso!');
 
-            return $this->redirectToRoute('admin_users_index');
-        }
+			return $this->redirectToRoute('admin_users_index');
+		}
 
-        return $this->render('admin/user/create.html.twig', [
-            'form' => $form->createView()
-        ]);
+		return $this->render('admin/user/create.html.twig', [
+			'form' => $form->createView()
+		]);
+	}
 
-        //return $this->render('admin/product/create.html.twig', compact('products'));
-    }
+	/**
+	 * @Route("/edit/{user}", name="edit")
+	 */
+	public function edit(User $user, Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder)
+	{
+		$form = $this->createForm(UserType::class, $user);
 
-    public function test(): Response
+		$form->handleRequest($request);
 
-    {
-        return $this->render('admin/user/index.html.twig', [
-            'controller_name' => 'UserController',
-        ]);
+		if($form->isSubmitted() && $form->isValid()) {
 
-        $user = $this->getDoctrine()->getRepository(User::class)->find(1);
-        //$order = $this->getDoctrine()->getRepository(Order::class)->find(1);
-        //dump($user->getOrder()->toArray());
-        //$user->removeOrder($order);
+			$password = $form['password']->getData();
 
-        $this->getDoctrine()->getManager()->flush();
+			if($password) {
+				$password = $passwordEncoder->encodePassword($user, $password);
+				$user->setPassword($password);
+			}
 
-        //Produto e Categoria
-        //$category = $this->getDoctrine()->getRepository(Category::class)->find(1);
-        //dump($category->getProducts()->toArray());
+			$em->flush();
 
-//        $category = new Category();
-//        $category->setName('Notebooks');
-//        //$category->setDescription('Notebooks e Netbooks');
-//        $category->setSlug('notebook');
-//        $category->setCreatedAt(new \DateTime('now', new \DateTimeZone('America/Sao_Paulo')));
-//        $category->setUpdatedAt(new \Datetime('now', new \DateTimeZone('America/Sao_Paulo')));
-//
-//        $product->setCategory($category);
-//        $this->getDoctrine()->getManager()->flush();
+			$this->addFlash('success', 'Usuário atualizado com sucesso!');
 
-        //$order = $this->getDoctrine()->getRepository(Order::class)->find(1);
-        //dump($order->getUser()->getFirstName());
+			return $this->redirectToRoute('admin_users_edit', ['user' => $user->getId()]);
+		}
 
-//        $order = new Order();
-//        $order->setReference('CODIDO COMPRA TRÊS');
-//        $order->setItems('ITEMS');
-//        $order->setUser($user);
-//
-//        $order->setCreatedAt(new \DateTime('now', new \DateTimeZone('America/Sao_Paulo')));
-//        $order->setUpdatedAt(new \DateTime('now', new \DateTimeZone('America/Sao_Paulo')));
-//        $order->setUser($user);
-//        //dump($order);
-//
-//        $this->getDoctrine()->getManager()->persist($order);
-//        $this->getDoctrine()->getManager()->flush($order);
-        //dump($address->getUser()->getLastName());
+		return $this->render('admin/user/edit.html.twig', [
+			'form' => $form->createView()
+		]);
+	}
 
-        /*$user = new User();
-        $user->setFirstName('Harry');
-        $user->setLastName('Will');
-        $user->setEmail('willvix@outlook.com');
-        $user->setPassword('10');
-        $user->setCreatedAt(new \DateTime('now', new \DateTimeZone('America/Sao_Paulo')));
-        $user->setUpdateAt(new \DateTime('now', new \DateTimeZone('America/Sao_Paulo')));
+	/**
+	 * @Route("/remove/{user}", name="remove")
+	 */
+	public function remove(User $user)
+	{
+		try{
+			$manager = $this->getDoctrine()->getManager();
+			$manager->remove($user);
+			$manager->flush();
 
-        $manager->persist($user);
-        $manager->flush();
+			$this->addFlash('success', 'Usuário removido com sucesso!');
 
-        $address = new Address();
-        $address->setAddress('Rua Holdecim');
-        $address->setNumber(840);
-        $address->setNeighborhood('Civit 2');
-        $address->setCity('Serra');
-        $address->setState('ES');
-        $address->setZipcode('29168-066');
-        $address->setUser($user);
+			return $this->redirectToRoute('admin_users_index');
 
-        $manager->persist($address);
-        $manager->flush();*/
-
-        return $this->render('index.html.twig', compact('name','user'));
-    }
-
-    /**
-     * @Route("/", name="edit")
-     */
-    public function edit(): Response
-    {
-        return $this->render('admin/user/index.html.twig', [
-            'controller_name' => 'UserController',
-        ]);
-    }
-
-    /**
-     * @Route("/", name="remove")
-     */
-    public function remove(): Response
-    {
-        return $this->render('admin/user/index.html.twig', [
-            'controller_name' => 'UserController',
-        ]);
-    }
+		} catch (\Exception $e) {
+			die($e->getMessage());
+		}
+	}
 }
