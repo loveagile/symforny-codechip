@@ -166,7 +166,9 @@ php bin/console debug:container(lista todos serviços do container)
 
 118-php bin/console debug:container --parameter=kernel.secret
 
-121-php bin/console debug:autowiring encode
+121-php bin/console debug:autowiring encode(verifica se tem algum serviço que bate)
 
+124- link:https://gist.github.com/NandoKstroNet/05fef9b8521d867545ff26305d82deb9
 
+125-https://getbootstrap.com/docs/5.0/components/card/
 

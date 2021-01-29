@@ -1,6 +1,22 @@
 {% extends 'front.html.twig' %}
 
 {% block body %}
-    <h1></h1>
-    <hr>
+    <div class="row">
+        {% for product in products %}
+            <div class="col-3">
+                <div class="card">
+                    {% if product.getProductPhotos.count() %}
+                        <img src="{{ asset('/uploads/products/' ~ product.getProductPhotos.first().photo) }}" class="card-img-top" alt="...">
+                    {% else %}
+                        <strong>Sem imagem...</strong>
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <p class="card-text">{{ product.description }}</p>
+                        <a href="{{ path('product_single', {'slug': product.slug}) }}" class="btn btn-primary">Visualizar</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}
