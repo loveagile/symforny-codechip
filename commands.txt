@@ -164,5 +164,9 @@ php bin/console debug:container(lista todos serviços do container)
 
 117-composer req symfony/expression-language
 
+118-php bin/console debug:container --parameter=kernel.secret
+
+121-php bin/console debug:autowiring encode
+
 
 
