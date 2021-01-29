@@ -17,9 +17,11 @@
 
 </head>
 <body>
-<h1>Front...</h1>
-{{ encore_entry_script_tags('app') }}
+    <h1>Front...</h1>
+    {% block body %}{% endblock %}
 
-{% block javascripts %}{% endblock %}
+    {{ encore_entry_script_tags('app') }}
+
+    {% block javascripts %}{% endblock %}
 </body>
 </html>
