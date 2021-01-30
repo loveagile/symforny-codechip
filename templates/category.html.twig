@@ -3,11 +3,11 @@
 {% block body %}
     <div class="row mb-3">
         <div class="col-12">
-            <h2>Categoria: {{ category.name }}</h2>
+            <h2>Categoria: {{ category }}</h2>
             <hr>
         </div>
-        {% if category.products.count %}
-            {% for key, product in category.products %}
+        {% if productsPaginated|length %}
+            {% for key, product in productsPaginated %}
                 <div class="col-3">
                     <div class="card">
                         {% if product.getProductPhotos.count() %}
@@ -24,6 +24,12 @@
                 </div>
                 {% if(key + 1) % 4 == 0 %} <div class="row mb-3"></div> {% endif %}
             {% endfor %}
+            <hr>
+            <div class="col-12">
+                <div class="pagination">
+                    {{ knp_pagination_render(productsPaginated) }}
+                </div>
+            </div>
         {% else %}
             <div class="col-12">
                 <strong>Categoria não possui produtos cadastrados...</strong>

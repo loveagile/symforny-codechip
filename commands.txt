@@ -174,4 +174,6 @@ php bin/console debug:container(lista todos serviços do container)
 
 128-php bin/console make:controller CategoryController
 
+129-composer req knplabs/knp-paginator-bundle(Páginas de dados dentro do projeto.)
+
 
