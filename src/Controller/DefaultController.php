@@ -2,13 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Category;
 use App\Entity\Product;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\{User, Address, Order};
 
 class DefaultController extends AbstractController
 {
@@ -17,8 +14,8 @@ class DefaultController extends AbstractController
      */
     public function index( ProductRepository $productRepository)
     {
-        $products = $productRepository->findAll();
-        dump($products);
+        $products = $productRepository->findBy([], ['id'=>'DESC']);
+
         return $this->render('index.html.twig', compact('products'));
     }
 
