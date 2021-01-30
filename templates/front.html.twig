@@ -35,8 +35,8 @@
                     {% endfor %}
 
                 </ul>
-                <form class="d-flex form-inline">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <form class="d-flex form-inline" action="{{ path('home_search') }}">
+                    <input class="form-control me-2" type="search"  name="s" placeholder="Encontre o seu produto" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
             </div>

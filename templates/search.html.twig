@@ -1,0 +1,39 @@
+{% extends 'front.html.twig' %}
+
+{% block body %}
+    <div class="row mb-3">
+        <div class="col-12">
+            <h2>Resultado busca: {{ search }}</h2>
+            <hr>
+        </div>
+        {% if products|length %}
+            {% for key, product in products %}
+                <div class="col-3">
+                    <div class="card">
+                        {% if product.getProductPhotos.count() %}
+                            <img src="{{ asset('/uploads/products/' ~ product.getProductPhotos.first().photo) }}" class="card-img-top" alt="...">
+                        {% else %}
+                            <img src="{{ asset('images/no-photo.jpg') }}" alt="" class="img-fluid">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.name }}</h5>
+                            <p class="card-text">{{ product.description }}</p>
+                            <a href="{{ path('product_single', {'slug': product.slug}) }}">Ver Produto</a>
+                        </div>
+                    </div>
+                </div>
+                {% if(key + 1) % 4 == 0 %} <div class="row mb-3"></div> {% endif %}
+            {% endfor %}
+            <hr>
+            <div class="col-12">
+                <div class="pagination">
+                    {{ knp_pagination_render(products) }}
+                </div>
+            </div>
+        {% else %}
+            <div class="col-12">
+                <strong>Categoria não possui produtos cadastrados...</strong>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
