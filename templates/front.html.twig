@@ -28,6 +28,12 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{ path('home') }}">Home</a>
                     </li>
+                    {%  for category in categories.findAll() %}
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{ path('home_category',{'slug': category.slug}) }}">{{ category.name }}</a>
+                        </li>
+                    {% endfor %}
+
                 </ul>
                 <form class="d-flex form-inline">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

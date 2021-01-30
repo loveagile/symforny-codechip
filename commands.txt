@@ -172,3 +172,6 @@ php bin/console debug:container(lista todos serviços do container)
 
 125-https://getbootstrap.com/docs/5.0/components/card/
 
+128-php bin/console make:controller CategoryController
+
+
