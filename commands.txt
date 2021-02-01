@@ -176,4 +176,7 @@ php bin/console debug:container(lista todos serviços do container)
 
 129-composer req knplabs/knp-paginator-bundle(Páginas de dados dentro do projeto.)
 
+133-php bin/console debug:autowiring session(Verifica o que tem de serviço.)
+
+
 
