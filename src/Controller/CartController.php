@@ -33,17 +33,14 @@ class CartController extends AbstractController
     {
         $item = [
             'name' => 'Produto Teste' . rand(1, 100),
-            'slug' => $item . rand(1, 100),
+            'slug' => $item,
             'price' => 1999,
             'amount' => 3
         ];
 
         $this->cart->addItem($item);
 
-        return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/CartController.php',
-        ]);
+        return $this->redirectToRoute('product_single', ['slug' => $item['slug']]);
     }
 
     /**
