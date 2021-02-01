@@ -182,6 +182,10 @@ php bin/console debug:container(lista todos serviços do container)
 
 140-php bin/console make:controller CheckoutController
 
+141-php bin/console make:auth
+>0 >LoginFormAuthenticator
+
+
 
 
 

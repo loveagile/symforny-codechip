@@ -17,10 +17,10 @@ security:
         main:
             anonymous: true
             lazy: true
-            provider: users_provider
-            form_login:
-                login_path: app_login
-                check_path: app_login
+#            provider: users_provider
+#            form_login:
+#                login_path: app_login
+#                check_path: app_login
 
             logout:
                 path: app_logout
@@ -29,6 +29,9 @@ security:
                 secret: '%kernel.secret%'
                 lifetime: 604800
                 path: /admin
+            guard:
+                authenticators:
+                    - App\Security\LoginFormAuthenticator
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
