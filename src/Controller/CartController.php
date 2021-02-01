@@ -46,4 +46,17 @@ class CartController extends AbstractController
             'path' => 'src/Controller/CartController.php',
         ]);
     }
+
+    /**
+     * @Route("/cart/remove/{item}", name="home_cart_remove")
+     */
+    public function remove($item)
+    {
+        $this->cart->removeItem($item);
+
+        return $this->json([
+            'message' => 'Welcome to your new controller!',
+            'path' => 'src/Controller/CartController.php',
+        ]);
+    }
 }

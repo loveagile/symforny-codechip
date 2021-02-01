@@ -41,6 +41,17 @@ class CartService
 
     public function removeItem($item)
     {
+        $cart = $this->getAll();
 
+        if(count($cart) == 0) $cart;
+
+        $cart = array_filter($cart, function($itemArr) use($item){
+            return $itemArr['slug'] != $item;
+        });
+
+        if(count($cart) == 0)
+            return $this->session->remove('cart');
+
+        $this->session->set('cart', $cart);
     }
 }
