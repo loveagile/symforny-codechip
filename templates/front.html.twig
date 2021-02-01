@@ -26,12 +26,18 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ path('home') }}">Home</a>
+                        <a class="nav-link {% if app.request.attributes.get('_route') == 'home' %} active {% endif %}" aria-current="page" href="{{ path('home') }}">Home</a>
                     </li>
                     {%  for category in categories.findAll() %}
+
+                        {% set pathCategory = path('home_category',{'slug': category.slug}) %}
+
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{ path('home_category',{'slug': category.slug}) }}">{{ category.name }}</a>
+
+                            <a class="nav-link {% if pathCategory == app.request.pathInfo %} active {% endif %}" aria-current="page" href="{{ pathCategory }}">{{ category.name }}</a>
+
                         </li>
+
                     {% endfor %}
 
                 </ul>
