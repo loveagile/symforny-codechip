@@ -26,14 +26,11 @@ class CartService
 
     public function addItem($item)
     {
-        //Se tem carrinho na sessão
         $cart = $this->getAll();
 
-        //Se tiver eu adiciono na sessão atual
         if(count($cart)) {
             array_push($cart, $item);
         } else {
-            //Se não tiver eu crio a sessao cart...
             $cart[] = $item;
         }
 
