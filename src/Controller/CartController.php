@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Repository\ProductRepository;
 use App\Service\CartService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -29,18 +31,22 @@ class CartController extends AbstractController
     /**
      * @Route("/cart/add/{item}", name="home_cart_add")
      */
-    public function add($item)
+    public function add($item, ProductRepository $productRepository, Request $request)
     {
-        $item = [
-            'name' => 'Produto Teste' . rand(1, 100),
-            'slug' => $item,
-            'price' => 1999,
-            'amount' => 3
-        ];
+        if($request->request->get('amount') <= 0){
+            return $this->redirectToRoute('home');
+        }
 
-        $this->cart->addItem($item);
+        $product = $productRepository->findProductToCartBySlug($item);
 
-        return $this->redirectToRoute('product_single', ['slug' => $item['slug']]);
+        if(!$product) return $this->redirectToRoute('home');
+
+        $product['price'] = $product['price'] / 100;
+        $product['amount'] = $request->request->get('amount');
+
+        $this->cart->addItem($product);
+
+        return $this->redirectToRoute('product_single', ['slug' => $product['slug']]);
     }
 
     /**

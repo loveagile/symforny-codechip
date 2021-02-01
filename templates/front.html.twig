@@ -39,6 +39,9 @@
                         </li>
 
                     {% endfor %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if app.request.attributes.get('_route') == 'home_cart' %} active {% endif %}" aria-current="page" href="{{ path('home_cart') }}">Carrinho</a>
+                    </li>
 
                 </ul>
                 <form class="d-flex form-inline" action="{{ path('home_search') }}">

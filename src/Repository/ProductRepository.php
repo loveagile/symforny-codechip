@@ -33,6 +33,15 @@ class ProductRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findProductToCartBySlug(string $slug)
+    {
+        return $this->createQueryBuilder('p') // seletct * from products as p
+        ->andWhere('p.slug = :slug')
+            ->setParameter('slug', $slug)
+            ->select('p.name', 'p.price', 'p.slug')
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
     /*
     public function findOneBySomeField($value): ?Product
     {

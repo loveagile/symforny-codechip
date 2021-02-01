@@ -23,7 +23,7 @@
             <h5>{{ product.name }}</h5>
             <p>{{ product.description }}</p>
             <h3>R$ {{ product.floatPrice|number_format(2, ',', '.') }}</h3>
-            <form action="{{ path('home_cart_add', {item: product.slug}) }}" class="mt-3">
+            <form action="{{ path('home_cart_add', {item: product.slug}) }}" class="mt-3" method="post">
                 <div class="form-group">
                     <label for="">Quantidade</label>
                     <input type="number" name="amount" id="" value="1" class="form-control col-2">
