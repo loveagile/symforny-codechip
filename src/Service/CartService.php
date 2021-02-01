@@ -54,4 +54,11 @@ class CartService
 
         $this->session->set('cart', $cart);
     }
+
+    public function destroyCart()
+    {
+        $this->session->remove('cart');
+
+        return true;
+    }
 }

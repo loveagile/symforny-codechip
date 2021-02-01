@@ -58,4 +58,21 @@ class CartController extends AbstractController
 
         return $this->redirectToRoute('home_cart');
     }
+
+    /**
+     * @Route("/cart/destroy", name="home_cart_destroy")
+     */
+    public function destroy()
+    {
+        $this->cart->destroyCart();
+
+        return $this->redirectToRoute('home_cart');
+    }
+
+    /**
+     * @Route("/cart/pay", name="home_cart_pay")
+     */
+    public function pay(){
+        return true;
+    }
 }

@@ -19,23 +19,35 @@
                     </tr>
                     </thead>
                     <tbody>
+                    {% set total = 0 %}
                     {% for c in cart %}
                         <tr>
                             <td>{{ c['name'] }}</td>
-                            <td>{{ c['price'] }}</td>
+                            <td>{{ 'R$ ' ~ c['price']|number_format(2, ',','.') }}</td>
                             <td>{{ c['amount'] }}</td>
                             <td>
                                 {% set subtotal =c['price'] * c['amount'] %}
-                                {{ subtotal }}
+                                {{ 'R$ ' ~ subtotal|number_format(2, ',','.') }}
+
+                                {% set total = total + subtotal %}
                             </td>
                             <td><a href="{{ path('home_cart_remove', {item: c['slug']}) }}" class="btn btn-sm btn-danger">Remover</a></td>
                         </tr>
                     {% endfor %}
+                        <tr>
+                            <td colspan="3" class="text-right">Total: </td>
+                            <td colspan="2">{{ 'R$ ' ~ total|number_format(2, ',','.') }}</td>
+                        </tr>
                     </tbody>
                 </table>
+                <div class="col-12 d-flex justify-content-between align-items-center">
+                    <a href="{{ path('home_cart_destroy') }}" class="btn btn-lg btn-danger">Cancelar Compra</a>
+                    <a href="{{ path('home_cart_pay') }}" class="btn btn-lg btn-success">Finalizar Pagamento</a>
+                </div>
             {% else %}
                 <div class="alert alert-warning">Sem produtos no carrinho...</div>
             {% endif %}
         </div>
+
     </div>
 {% endblock %}
