@@ -21,11 +21,9 @@ class CartController extends AbstractController
      */
     public function index(): Response
     {
-        dd($this->cart->getAll());
-        return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/CartController.php',
-        ]);
+        $cart =  $this->cart->getAll();
+        dump($cart);
+        return $this->render('cart.html.twig', compact('cart'));
     }
 
     /**
@@ -36,7 +34,8 @@ class CartController extends AbstractController
         $item = [
             'name' => 'Produto Teste' . rand(1, 100),
             'slug' => $item . rand(1, 100),
-            'price' => 1999
+            'price' => 1999,
+            'amount' => 3
         ];
 
         $this->cart->addItem($item);
@@ -54,9 +53,6 @@ class CartController extends AbstractController
     {
         $this->cart->removeItem($item);
 
-        return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/CartController.php',
-        ]);
+        return $this->redirectToRoute('home_cart');
     }
 }

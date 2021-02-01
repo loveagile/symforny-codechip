@@ -1,0 +1,38 @@
+{% extends 'front.html.twig' %}
+
+{% block body %}
+    <div class="row mb-3">
+        <div class="col-12">
+            <h2>Carrinho de Compras</h2>
+            <hr>
+        </div>
+        <div class="col-12">
+            {% if cart|length >= 1 %}
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Preço</th>
+                        <th>Quantidade</th>
+                        <th>Subtotal</th>
+                        <th>Ações</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for c in cart %}
+                        <tr>
+                            <td>{{ c['name'] }}</td>
+                            <td>{{ c['price'] }}</td>
+                            <td>{{ c['amount'] }}</td>
+                            <td></td>
+                            <td><a href="{{ path('home_cart_remove', {item: c['slug']}) }}" class="btn btn-sm btn-danger">Remover</a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div class="alert alert-warning">Sem produtos no carrinho...</div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
