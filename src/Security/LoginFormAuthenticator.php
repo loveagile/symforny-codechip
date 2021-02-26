@@ -3,27 +3,31 @@
 namespace App\Security;
 
 use App\Repository\UserRepository;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
-use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
+use Symfony\Component\Security\Csrf\CsrfToken;
 
 class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 {
     private $userRepository;
-    /**
-     * @var UserPasswordEncoderInterface
-     */
     private $passwordEncoder;
+    private $router;
+    private $csrfTokenManager;
 
-    public function __construct(UserRepository $userRepository, UserPasswordEncoderInterface $passwordEncoder)
+    public function __construct(UserRepository $userRepository, UserPasswordEncoderInterface $passwordEncoder, RouterInterface $router, CsrfTokenManagerInterface $csrfTokenManager)
     {
         $this->userRepository = $userRepository;
         $this->passwordEncoder = $passwordEncoder;
+        $this->router = $router;
+        $this->csrfTokenManager = $csrfTokenManager;
     }
 
     public function supports(Request $request)
@@ -36,12 +40,19 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     {
         return [
           'username' => $request->request->get('_username'),
-          'password' => $request->request->get('_password')
+          'password' => $request->request->get('_password'),
+          'csrf_token' => $request->request->get('_csrf_token')
         ];
     }
 
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
+        $csrfToken = new CsrfToken('authenticate', $credentials['csrf_token']);
+
+        if(!$this->csrfTokenManager->isTokenValid($csrfToken)) {
+            throw new InvalidCsrfTokenException();
+        }
+
         return $this->userRepository
             ->findOneByEmail($credentials['username']);
     }
@@ -53,16 +64,19 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $providerKey)
     {
-        // todo
+        if($request->getSession()->has('cart')) {
+            return new RedirectResponse($this->router->generate('home_checkout'));
+        }
+        return new RedirectResponse('/admin/products');
     }
 
     public function supportsRememberMe()
     {
-        // todo
+        return true;
     }
 
     public function getLoginUrl(): string
     {
-        // TODO: Implement getLoginUrl() method.
+        return $this->router->generate('app_login');
     }
 }
