@@ -185,7 +185,11 @@ php bin/console debug:container(lista todos serviços do container)
 141-php bin/console make:auth
 >0 >LoginFormAuthenticator
 
-
+143-php bin/console make:controller RegisterController
+php bin/console make:form UserRegisterform
+>User
+php bin/console make:form AdressFormType
+>Adress
 
 
 
