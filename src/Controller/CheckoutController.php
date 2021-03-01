@@ -29,8 +29,11 @@ class CheckoutController extends AbstractController
      * @Route("/checkout/thanks", name="home_checkout_finished", priority="10")
      * @IsGranted("ROLE_USER")
      */
-    public function thanks()
+    public function thanks(Request $request)
     {
+        if($request->getSession()->has('cart')) {
+            $request->getSession()->remove('cart');
+        }
         return new Response('Obrigado por sua compra!');
     }
 }
