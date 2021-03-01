@@ -31,9 +31,16 @@ class CheckoutController extends AbstractController
      */
     public function thanks(Request $request)
     {
-        if($request->getSession()->has('cart')) {
-            $request->getSession()->remove('cart');
+        $session = $request->getSession();
+
+        if(!$session->has('cart')) {
+           return $this->redirectToRoute('home');
         }
-        return new Response('Obrigado por sua compra!');
+
+        $cart = $session->get('cart');
+
+        $session->remove('cart');
+
+        return $this->render('thanks.html.twig', compact('cart'));
     }
 }

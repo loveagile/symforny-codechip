@@ -67,6 +67,10 @@
     </nav>
 
     <div class="container">
+        <div class="message">
+            {% include 'admin/includes/messages.html.twig'%}
+
+        </div>
         {% block body %}{% endblock %}
     </div>
     {{ encore_entry_script_tags('app') }}
