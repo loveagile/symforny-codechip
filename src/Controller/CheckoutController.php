@@ -25,4 +25,12 @@ class CheckoutController extends AbstractController
 
         return $this->render('checkout.html.twig', compact('cart'));
     }
+    /**
+     * @Route("/checkout/thanks", name="home_checkout_finished", priority="10")
+     * @IsGranted("ROLE_USER")
+     */
+    public function thanks()
+    {
+        return new Response('Obrigado por sua compra!');
+    }
 }

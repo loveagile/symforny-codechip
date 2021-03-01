@@ -96,6 +96,9 @@
         </label>
     </div>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Acessar</button>
+    {% if app.request.session.has('cart') %}
+        <a href="{{ path('home_register') }}" class="btn btn-link mt-3">Não possui conta? Crie uma clicando aqui!</a>
+    {% endif %}
     <p class="mt-5 mb-3 text-muted">&copy; {{ "now"|date('Y') }}</p>
 </form>
 </body>
