@@ -29,7 +29,14 @@ class CartService
         $cart = $this->getAll();
 
         if(count($cart)) {
-            array_push($cart, $item);
+            $findSlug = array_column($cart, 'slug');
+
+            if(in_array($item['slug'], $findSlug)){
+                $cart = $this->incrementCartSlug($cart, $item);
+            } else {
+                array_push($cart, $item);
+            }
+
         } else {
             $cart[] = $item;
         }
@@ -60,5 +67,17 @@ class CartService
         $this->session->remove('cart');
 
         return true;
+    }
+
+    private function incrementCartSlug($cart, $item)
+    {
+        $cartModified = array_map(function ($line) use($item){
+            if($line['slug'] == $item['slug']) {
+                $line['amount'] += $item['amount'];
+            }
+            return $line;
+        }, $cart);
+
+        return $cartModified;
     }
 }
