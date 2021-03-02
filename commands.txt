@@ -202,4 +202,5 @@ https://gist.github.com/NandoKstroNet/911093d8cac72ffbc0091862cba414d2
 -php bin/console make:controller --no-template
 >Api\MyOrderController
 
+153-composer req serializer
 

@@ -2,20 +2,26 @@
 
 namespace App\Controller\Api;
 
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/api/orders", name="api_orders_")
+ */
 class MyOrderController extends AbstractController
 {
     /**
-     * @Route("/api/my/order", name="api_my_order")
+     * @Route("/", name="get")
      */
-    public function index(): Response
+    public function index(UserRepository $repo)
     {
+        $user = $repo->find(1);
         return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/Api/MyOrderController.php',
+            'data' => [
+                'orders' => $user->getOrder()
+            ]
         ]);
     }
 }
