@@ -4,7 +4,6 @@ namespace App\Controller\Api;
 
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -13,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class MyOrderController extends AbstractController
 {
     /**
-     * @Route("/", name="get")
+     * @Route("/", name="get", methods={"GET"})
      */
     public function index(UserRepository $repo)
     {
@@ -22,6 +21,9 @@ class MyOrderController extends AbstractController
             'data' => [
                 'orders' => $user->getOrder()
             ]
-        ]);
+        ], 200, [], [
+            'groups' => ['user_orders']
+            ]
+        );
     }
 }
