@@ -2,20 +2,41 @@
 
 namespace App\Controller\Api;
 
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
+/**
+ * @Route("/api/profiles", name="api_profiles_")
+ */
 class ProfileController extends AbstractController
 {
     /**
-     * @Route("/api/profile", name="api_profile")
+     * @Route("/password", name="get", methods={"PUT", "PATCH"})
      */
-    public function index(): Response
+    public function index(Request $request, UserRepository $repo, UserPasswordEncoderInterface $passwordEncoder)
     {
+        $plainPassword = $request->request->get('password');
+
+        if(!$plainPassword) {
+            return $this->json([
+                'data' => [
+                    'message' => 'O campo senha é requerido...'
+                ]
+            ], 400);
+        }
+        $user = $repo->find(1);
+
+        $password = $passwordEncoder->encodePassword($user, $plainPassword);
+        $user->setPassword($password);
+
+        $this->getDoctrine()->getManager()->flush();
+
         return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/Api/ProfileController.php',
+            'message' => 'Senha atualizada com sucesso!',
         ]);
     }
 }
