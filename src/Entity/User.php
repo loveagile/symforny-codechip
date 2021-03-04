@@ -27,16 +27,19 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Serializer\Groups({"test"})
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Serializer\Groups({"test"})
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Serializer\Groups({"test"})
      */
     private $email;
 

@@ -205,3 +205,6 @@ https://gist.github.com/NandoKstroNet/911093d8cac72ffbc0091862cba414d2
 153-composer req serializer
 -php bin/console cache:clear
 
+155-php bin/console make:form UserProfileType
+>User
+
