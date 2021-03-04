@@ -4,6 +4,8 @@ namespace App\Controller\Api;
 
 use App\Form\UserProfileType;
 use App\Repository\UserRepository;
+use App\Service\Api\FormErrorsValidation;
+use phpDocumentor\Reflection\Types\This;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,7 +18,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class ProfileController extends AbstractController
 {
     /**
-     * @Route("/{user}", name="update", methods={"GET"})
+     * @Route("/", name="update", methods={"GET"})
      */
     public function userProfile(UserRepository $repo)
     {
@@ -27,6 +29,30 @@ class ProfileController extends AbstractController
                 'profile' => $user
                 ]
         ],200,[],['groups' => ['profile']]);
+    }
+
+    /**
+     * @Route("/{user}", name="update", methods={"PUT"})
+     */
+    public function profile(Request $request, UserRepository $repo, $user, FormErrorsValidation $formErrors)
+    {
+        $user = $repo->find($user);
+        $form = $this->createForm(UserProfileType::class, $user);
+        $form->submit($request->request->all());
+
+        if(!$form->isValid()) {
+            return $this->json(['data' => [
+                'errors' => $formErrors->getErrors($form)
+            ]], 400);
+        }
+
+        $this->getDoctrine()->getManager()->flush();
+
+        return $this->json([
+            'data' => [
+                'message' => 'Perfil atualizado com sucesso!'
+            ]
+        ]);
     }
 
     /**
