@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\AddressRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use phpDocumentor\Reflection\DocBlock\Serializer;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=AddressRepository::class)
@@ -23,31 +25,37 @@ class Address
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"profile"})
      */
     private $address;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups({"profile"})
      */
     private $number;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"profile"})
      */
     private $neighborhood;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"profile"})
      */
     private $city;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"profile"})
      */
     private $state;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"profile"})
      */
     private $zipcode;
 

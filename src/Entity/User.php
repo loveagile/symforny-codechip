@@ -27,19 +27,19 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Serializer\Groups({"test"})
+     * @Serializer\Groups({"profile"})
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Serializer\Groups({"test"})
+     * @Serializer\Groups({"profile"})
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Serializer\Groups({"test"})
+     * @Serializer\Groups({"profile"})
      */
     private $email;
 
@@ -55,6 +55,7 @@ class User implements UserInterface
 
     /**
      * @ORM\OneToOne(targetEntity=Address::class, mappedBy="user", cascade={"persist", "remove"})
+     * @Serializer\Groups({"profile"})
      */
     private $address;
 
