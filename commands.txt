@@ -210,3 +210,12 @@ https://gist.github.com/NandoKstroNet/911093d8cac72ffbc0091862cba414d2
 
 161-https://swagger.io/docs/specification/authentication/bearer-authentication/
 
+162-composer require lcobucci/jwt (Pacote para usar token)
+php bin/console make:auth
+-php bin/console make:auth
+>0 >ApiLoginAuthenticator >0
+-php bin/console make:auth
+>0 >JwtTokenAuthenticator
+
+
+
