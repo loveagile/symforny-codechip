@@ -208,3 +208,5 @@ https://gist.github.com/NandoKstroNet/911093d8cac72ffbc0091862cba414d2
 155-php bin/console make:form UserProfileType
 >User
 
+161-https://swagger.io/docs/specification/authentication/bearer-authentication/
+

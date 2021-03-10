@@ -80,4 +80,15 @@ class ProfileController extends AbstractController
             'message' => 'Senha atualizada com sucesso!',
         ]);
     }
+
+    /**
+     * @Route("/recovery/{user}", name="recovery_password", methods={"PUT","GET"})
+     */
+    public function recovery(Request $request, UserRepository $repo) {
+        $id = $request->request->get('id');
+        //echo json_encode("Is value ID: ".$id);
+        $data = $repo->find($id);
+        $pass = $data->getPassword();
+        return $this->json($pass);
+    }
 }
