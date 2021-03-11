@@ -31,4 +31,11 @@ class SecurityController extends AbstractController
     public function logout()
     {
     }
+
+    /**
+     * @Route("/api/login", name="app_login_api", priority="10")
+     */
+    public function apiLogin()
+    {
+    }
 }
