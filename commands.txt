@@ -217,5 +217,7 @@ php bin/console make:auth
 -php bin/console make:auth
 >0 >JwtTokenAuthenticator
 
+164-links https://github.com/lcobucci/jwt/blob/3.3/README.md
+https://jwt.io
 
 

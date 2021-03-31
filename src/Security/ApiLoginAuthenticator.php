@@ -12,6 +12,10 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
+use Lcobucci\JWT;
+use Lcobucci\JWT\Builder;
+use Lcobucci\JWT\Signer\Key;
+use Lcobucci\JWT\Signer\Hmac\Sha256;
 
 class ApiLoginAuthenticator extends AbstractGuardAuthenticator
 {
@@ -55,9 +59,25 @@ class ApiLoginAuthenticator extends AbstractGuardAuthenticator
         ]]);
     }
 
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $providerKey)
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
-        return new JsonResponse(['JWT']);
+        $signer = new Sha256();
+        $time = time();
+        $user = $token->getUser();
+
+        $token = (new Builder())->issuedBy('http://127.0.0.1:8000') // Configures the issuer (iss claim)
+        ->permittedFor('http://127.0.0.1:8000') // Configures the audience (aud claim)
+        ->identifiedBy($user->getId(), true) // Configures the id (jti claim), replicating as a header item
+        ->issuedAt($time) // Configures the time that the token was issue (iat claim)
+        ->canOnlyBeUsedAfter($time + 60) // Configures the time that the token can be used (nbf claim)
+        ->expiresAt($time + 3600) // Configures the expiration time of the token (exp claim)
+        ->withClaim('uid', $user->getId()) // Configures a new claim, called "uid"
+        ->withClaim('email', $user->getEmail())
+        ->getToken($signer, new Key('testing')); // Retrieves the generated token
+
+        return new JsonResponse(['data' => [
+            'token' => (string) $token
+        ]]);
     }
 
     public function start(Request $request, AuthenticationException $authException = null)
