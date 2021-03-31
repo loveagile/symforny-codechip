@@ -32,7 +32,7 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * @Route("/{user}", name="update", methods={"PUT"})
+     * @Route("/{user}", name="user", methods={"PUT"})
      */
     public function profile(Request $request, UserRepository $repo, $user, FormErrorsValidation $formErrors)
     {
@@ -56,7 +56,7 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * @Route("/password", name="update_password", methods={"PUT", "PATCH"})
+     * @Route("/password", name="update_password", methods={"PUT", "PATCH"}, priority="10")
      */
     public function index(Request $request, UserRepository $repo, UserPasswordEncoderInterface $passwordEncoder)
     {
@@ -82,7 +82,7 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * @Route("/recovery/{user}", name="recovery_password", methods={"PUT","GET"})
+     * @Route("/recovery/", name="recovery_password", methods={"PUT","GET", "POST"})
      */
     public function recovery(Request $request, UserRepository $repo) {
         $id = $request->request->get('id');

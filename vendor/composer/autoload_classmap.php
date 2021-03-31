@@ -38,6 +38,8 @@ return array(
     'App\\Repository\\ProductPhotoRepository' => $baseDir . '/src/Repository/ProductPhotoRepository.php',
     'App\\Repository\\ProductRepository' => $baseDir . '/src/Repository/ProductRepository.php',
     'App\\Repository\\UserRepository' => $baseDir . '/src/Repository/UserRepository.php',
+    'App\\Security\\ApiLoginAuthenticator' => $baseDir . '/src/Security/ApiLoginAuthenticator.php',
+    'App\\Security\\JwtTokenAuthenticator' => $baseDir . '/src/Security/JwtTokenAuthenticator.php',
     'App\\Security\\LoginFormAuthenticator' => $baseDir . '/src/Security/LoginFormAuthenticator.php',
     'App\\Service\\Api\\FormErrorsValidation' => $baseDir . '/src/Service/Api/FormErrorsValidation.php',
     'App\\Service\\CartService' => $baseDir . '/src/Service/CartService.php',
