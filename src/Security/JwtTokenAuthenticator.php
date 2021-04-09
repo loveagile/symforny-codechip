@@ -2,38 +2,56 @@
 
 namespace App\Security;
 
+use App\Repository\UserRepository;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
+use Symfony\Component\HttpFoundation\Response;
+use Lcobucci\JWT\Parser;
 
 class JwtTokenAuthenticator extends AbstractGuardAuthenticator
 {
+    public function __construct(UserRepository $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
+
     public function supports(Request $request)
     {
-        // todo
+        return $request->headers->has('Authorization')
+            && strpos($request->headers->get('Authorization'), 'Bearer ') === 0;
     }
 
     public function getCredentials(Request $request)
     {
-        // todo
+        $token = $request->headers->get('Authorization');
+
+        return substr($token, 7);
     }
 
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
-        // todo
+        $token = (new Parser())->parse((string) $credentials);
+
+        //validar os dados do token...
+
+        return $this->userRepository->findOneByEmail($token->getClaim('email'));
     }
 
     public function checkCredentials($credentials, UserInterface $user)
     {
-        // todo
+        return true;
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
-        // todo
+        return new JsonResponse(['data' =>  [
+            'error' => $exception->getMessageKey()
+        ]]);
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $providerKey)

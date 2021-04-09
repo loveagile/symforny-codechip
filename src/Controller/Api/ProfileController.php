@@ -18,11 +18,11 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class ProfileController extends AbstractController
 {
     /**
-     * @Route("/", name="update", methods={"GET"})
+     * @Route("/{user}", name="get", methods={"GET"})
      */
-    public function userProfile(UserRepository $repo)
+    public function userProfile(UserRepository $repo, $user)
     {
-        $user = $repo->find(1);
+        $user = $repo->find($user);
 
         return $this->json([
             'data' => [
@@ -32,7 +32,7 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * @Route("/{user}", name="user", methods={"PUT"})
+     * @Route("/{user}", name="update", methods={"PUT"})
      */
     public function profile(Request $request, UserRepository $repo, $user, FormErrorsValidation $formErrors)
     {
@@ -45,9 +45,9 @@ class ProfileController extends AbstractController
                 'errors' => $formErrors->getErrors($form)
             ]], 400);
         }
-
+        dd($user);
         $this->getDoctrine()->getManager()->flush();
-
+        dd('ok');
         return $this->json([
             'data' => [
                 'message' => 'Perfil atualizado com sucesso!'
