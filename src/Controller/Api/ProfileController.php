@@ -82,13 +82,17 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * @Route("/recovery/", name="recovery_password", methods={"PUT","GET", "POST"})
+     * @Route("/recovery", name="recovery_password", methods={"POST"}, priority="10")
      */
     public function recovery(Request $request, UserRepository $repo) {
-        $id = $request->request->get('id');
-        //echo json_encode("Is value ID: ".$id);
-        $data = $repo->find($id);
-        $pass = $data->getPassword();
-        return $this->json($pass);
+        $data = $repo->find($request->request->get('id'));
+
+        return $this->json([
+            'data' => [
+                'email' => $data->getEmail(),
+                'password' => $data->getPassword()
+            ]
+        ]);
     }
+
 }

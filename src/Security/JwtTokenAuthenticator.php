@@ -3,10 +3,12 @@
 namespace App\Security;
 
 use App\Repository\UserRepository;
+use Lcobucci\JWT\Signer\Hmac\Sha256;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
@@ -37,7 +39,13 @@ class JwtTokenAuthenticator extends AbstractGuardAuthenticator
     {
         $token = (new Parser())->parse((string) $credentials);
 
-        //validar os dados do token...
+        if (!$token->verify(new Sha256(), 'testing')) {
+            throw new CustomUserMessageAuthenticationException('Invalid Token');
+        }
+
+        if ($token->isExpired()) {
+            throw new CustomUserMessageAuthenticationException('Token Expired');
+        }
 
         return $this->userRepository->findOneByEmail($token->getClaim('email'));
     }
