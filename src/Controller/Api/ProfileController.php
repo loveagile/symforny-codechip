@@ -18,11 +18,11 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class ProfileController extends AbstractController
 {
     /**
-     * @Route("/{user}", name="get", methods={"GET"})
+     * @Route("/", name="get", methods={"GET"})
      */
-    public function userProfile(UserRepository $repo, $user)
+    public function userProfile()
     {
-        $user = $repo->find($user);
+        $user = $this->getUser();
 
         return $this->json([
             'data' => [
@@ -32,11 +32,11 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * @Route("/{user}", name="update", methods={"PUT"})
+     * @Route("/", name="update", methods={"PUT"})
      */
-    public function profile(Request $request, UserRepository $repo, $user, FormErrorsValidation $formErrors)
+    public function profile(Request $request, FormErrorsValidation $formErrors)
     {
-        $user = $repo->find($user);
+        $user = $this->getUser();
         $form = $this->createForm(UserProfileType::class, $user);
         $form->submit($request->request->all());
 
@@ -45,9 +45,9 @@ class ProfileController extends AbstractController
                 'errors' => $formErrors->getErrors($form)
             ]], 400);
         }
-        dd($user);
+
         $this->getDoctrine()->getManager()->flush();
-        dd('ok');
+
         return $this->json([
             'data' => [
                 'message' => 'Perfil atualizado com sucesso!'
@@ -58,7 +58,7 @@ class ProfileController extends AbstractController
     /**
      * @Route("/password", name="update_password", methods={"PUT", "PATCH"}, priority="10")
      */
-    public function index(Request $request, UserRepository $repo, UserPasswordEncoderInterface $passwordEncoder)
+    public function index(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
         $plainPassword = $request->request->get('password');
 
@@ -69,7 +69,7 @@ class ProfileController extends AbstractController
                 ]
             ], 400);
         }
-        $user = $repo->find(1);
+        $user = $this->getUser();
 
         $password = $passwordEncoder->encodePassword($user, $plainPassword);
         $user->setPassword($password);

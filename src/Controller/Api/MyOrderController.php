@@ -14,16 +14,16 @@ class MyOrderController extends AbstractController
     /**
      * @Route("/", name="get", methods={"GET"})
      */
-    public function index(UserRepository $repo)
+    public function index()
     {
-        $user = $repo->find(1);
+        $user = $this->getUser();
+        dd($user->getOrder());
         return $this->json([
             'data' => [
                 'orders' => $user->getOrder()
             ]
         ], 200, [], [
             'groups' => ['user_orders']
-            ]
-        );
+        ]);
     }
 }
