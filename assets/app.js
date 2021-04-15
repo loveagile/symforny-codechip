@@ -13,11 +13,11 @@ import './styles/app.css';
 // import $ from 'jquery';
 import Vue from 'vue';
 
+import Products from './components/products';
+
 new Vue({
-    el: '#app',
-    data: {
-        'project': 'Symfony 5 com Vuejs'
-    },
-    template: '<h3>Vue Js funcionando no {{project}}</h3>'
-});
+   render(h){
+       return h(Products);
+   }
+}).$mount('#app');
 //console.log('Hello Webpack Encore! Edit me in assets/app.js');
