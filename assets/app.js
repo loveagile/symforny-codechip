@@ -15,9 +15,19 @@ import Vue from 'vue';
 
 import Products from './components/products';
 
+Vue.component('product-list',{
+   props: {
+     products: {
+         type: Array,
+         required: true
+     }
+   },
+   template: '<h3>Propriedade recebida: {{products}}</h3>'
+});
+
 new Vue({
-   render(h){
-       return h(Products);
-   }
+   // render(h){
+   //     return h(Products);
+   // }
 }).$mount('#app');
 //console.log('Hello Webpack Encore! Edit me in assets/app.js');

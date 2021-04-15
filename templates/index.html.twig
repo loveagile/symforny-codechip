@@ -1,6 +1,10 @@
 {% extends 'front.html.twig' %}
 
 {% block body %}
+    <div id="app">
+        <product-list products="{{ products }}"/>
+    </div>
+
     <div class="row mb-3">
         {% for key, product in products %}
             <div class="col-3">
