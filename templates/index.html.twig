@@ -2,26 +2,6 @@
 
 {% block body %}
     <div id="app">
-        <product-list products="{{ products }}"/>
-    </div>
-
-    <div class="row mb-3">
-        {% for key, product in products %}
-            <div class="col-3">
-                <div class="card">
-                    {% if product.getProductPhotos.count() %}
-                        <img src="{{ asset('/uploads/products/' ~ product.getProductPhotos.first().photo) }}" class="card-img-top" alt="...">
-                    {% else %}
-                        <img src="{{ asset('images/no-photo.jpg') }}" alt="" class="img-fluid">
-                    {% endif %}
-                    <div class="card-body">
-                        <h5 class="card-title">{{ product.name }}</h5>
-                        <p class="card-text">{{ product.description }}</p>
-                        <a href="{{ path('product_single', {'slug': product.slug}) }}">Ver Produto</a>
-                    </div>
-                </div>
-            </div>
-            {% if(key + 1) % 4 == 0 %} <div class="row mb-3"></div> {% endif %}
-        {% endfor %}
+        <product-list v-bind:products="{{ products }}"/>
     </div>
 {% endblock %}

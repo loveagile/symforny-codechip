@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Asserts;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
@@ -28,6 +29,7 @@ class Product
     /**
      * @ORM\Column(type="string", length=255)
      * @Asserts\NotBlank(message="Este valor não deve ficar em branco.")
+     * @Groups({"productList"})
      */
     private $name;
 
@@ -35,6 +37,7 @@ class Product
      * @ORM\Column(type="string", length=255)
      * @Asserts\NotBlank(message="Este valor não deve ficar em branco.")
      * @Asserts\Length(min=30, minMessage="Descrição deve ter pelos menos 30 caracteres!")
+     * @Groups({"productList"})
      */
     private $description;
 
@@ -47,12 +50,14 @@ class Product
     /**
      * @ORM\Column(type="integer")
      * @Asserts\NotBlank(message="Este valor não deve ficar em branco.")
+     * @Groups({"productList"})
      */
     private $price;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Gedmo\Slug(fields={"name"})
+     * @Groups({"productList"})
      */
     private $slug;
 

@@ -22,7 +22,21 @@ Vue.component('product-list',{
          required: true
      }
    },
-   template: '<h3>Propriedade recebida: {{products}}</h3>'
+   template: `
+     <div class="row">
+         <div class="col-3" v-for="product in products">
+           <div class="card">
+             <img src="" class="card-img-top" alt="...">
+             <img :src="'/images/no-photo.jpg'" alt="" class="img-fluid">
+             <div class="card-body">
+               <h5 class="card-title">{{ product.name }}</h5>
+               <p class="card-text">{{ product.description }}</p>
+               <a :href="product.slug">Ver Produto</a>
+             </div>
+           </div>
+         </div>
+     </div>
+     `
 });
 
 new Vue({
