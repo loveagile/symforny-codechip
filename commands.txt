@@ -220,4 +220,8 @@ php bin/console make:auth
 164-links https://github.com/lcobucci/jwt/blob/3.3/README.md
 https://jwt.io
 
+173-npm run dev
+-npm install vue@^2.5 vue-loader@^15 vue-template-compiler --save-dev
+-npm run watch
+
 

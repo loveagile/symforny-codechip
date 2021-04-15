@@ -11,5 +11,13 @@ import './styles/app.css';
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
 // import $ from 'jquery';
+import Vue from 'vue';
 
-console.log('Hello Webpack Encore! Edit me in assets/app.js');
+new Vue({
+    el: '#app',
+    data: {
+        'project': 'Symfony 5 com Vuejs'
+    },
+    template: '<h3>Vue Js funcionando no {{project}}</h3>'
+});
+//console.log('Hello Webpack Encore! Edit me in assets/app.js');
