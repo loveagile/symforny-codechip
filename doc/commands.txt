@@ -227,5 +227,6 @@ https://jwt.io
 177-php bin/console make:controller
 >Api\ProductController
 
+178-php bin/console cache:clear
 
 

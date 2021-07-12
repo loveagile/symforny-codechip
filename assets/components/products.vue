@@ -2,8 +2,8 @@
   <div class="row">
     <div class="col-3 mb-10" v-for="product in products">
       <div class="card">
-        <img src="" class="card-img-top" alt="...">
-        <img :src="'/images/no-photo.jpg'" alt="" class="img-fluid">
+        <img v-if="product.thumb" :src="'/uploads/products/' + product.thumb" alt="..." class="card-img-top">
+        <img v-else :src="'/images/no-photo.jpg'" alt="" class="img-fluid">
         <div class="card-body">
           <h5 class="card-title">{{ product.name }}</h5>
           <p class="card-text">{{ product.description }}</p>

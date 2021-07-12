@@ -150,6 +150,17 @@ class Product
     }
 
     /**
+     * @Groups({"productList"})
+     */
+    public function getThumb()
+    {
+        if(!$this->productPhotos->count())
+            return null;
+
+        return $this->productPhotos->first()->getPhoto();
+    }
+
+    /**
      * @return Collection|Category[]
      */
     public function getCategory(): Collection
