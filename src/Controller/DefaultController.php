@@ -13,12 +13,11 @@ class DefaultController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function index( ProductRepository $productRepository, SerializerInterface $serializer)
+    public function index(/*, SerializerInterface $serializer*/)
     {
-        $products = $productRepository->findBy([], ['id'=>'DESC']);
-        $products = $serializer->serialize($products, 'json', ['groups' =>['productList']]);
+        //$products = $serializer->serialize($products, 'json', ['groups' =>['productList']]);
 
-        return $this->render('index.html.twig', compact('products'));
+        return $this->render('index.html.twig');
     }
 
     /**

@@ -1,18 +1,33 @@
 <template>
-    <div>
-        <h3>Vue Js funcionando no {{project}}</h3>
+  <div class="row">
+    <div class="col-3 mb-10" v-for="product in products">
+      <div class="card">
+        <img src="" class="card-img-top" alt="...">
+        <img :src="'/images/no-photo.jpg'" alt="" class="img-fluid">
+        <div class="card-body">
+          <h5 class="card-title">{{ product.name }}</h5>
+          <p class="card-text">{{ product.description }}</p>
+          <a :href="product.slug">Ver Produto</a>
+        </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
 
-    export default {
-      name: 'Products',
-      data: () => {
-      return {
-        'project': 'Symfony 5 com VueJS'
-      }
+export default {
+  name: 'Products',
+  data: () => {
+    return {
+      'products': ''
     }
+  },
+  created() {
+    fetch('http://127.0.0.1:8000/api/products')
+        .then((response) => response.json())
+        .then((response) => this.products = response);
+  }
 }
 
 </script>

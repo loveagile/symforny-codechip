@@ -17,6 +17,7 @@ security:
         api:
             pattern: ^/api
             stateless: true
+            anonymous: true
             guard:
                 authenticators:
                     - App\Security\ApiLoginAuthenticator
@@ -53,6 +54,7 @@ security:
          #- { path: ^/, roles: ROLE_ADMIN }
         - { path: ^/admin/(products|categories), roles: ROLE_MANAGER }
         - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/api/products, roles: IS_ANONYMOUS, methods: ['GET'] }
         - { path: ^/api, roles: ROLE_USER }
 
     role_hierarchy:

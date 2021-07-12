@@ -224,4 +224,8 @@ https://jwt.io
 -npm install vue@^2.5 vue-loader@^15 vue-template-compiler --save-dev
 -npm run watch
 
+177-php bin/console make:controller
+>Api\ProductController
+
+
 
