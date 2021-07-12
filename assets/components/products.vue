@@ -1,22 +1,20 @@
 <template>
   <div class="row">
-    <div class="col-3 mb-10" v-for="product in products">
-      <div class="card">
-        <img v-if="product.thumb" :src="'/uploads/products/' + product.thumb" alt="..." class="card-img-top">
-        <img v-else :src="'/images/no-photo.jpg'" alt="" class="img-fluid">
-        <div class="card-body">
-          <h5 class="card-title">{{ product.name }}</h5>
-          <p class="card-text">{{ product.description }}</p>
-          <a :href="product.slug">Ver Produto</a>
-        </div>
-      </div>
+    <div class="col-3 mb-5" v-for="product in products">
+
+      <ProductSingle :product="product"/>
+
     </div>
   </div>
 </template>
 
 <script>
+import ProductSingle from './product-single';
 
 export default {
+  components: {
+    ProductSingle
+  },
   name: 'Products',
   data: () => {
     return {

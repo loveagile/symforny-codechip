@@ -124,6 +124,9 @@ class Product
         return $this->price;
     }
 
+    /**
+     * @Groups({"productList"})
+     */
     public function getFloatPrice(): ?float
     {
         $price= $this->getPrice();

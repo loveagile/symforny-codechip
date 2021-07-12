@@ -45,12 +45,12 @@ new Vue({
 }).$mount('#app');
 console.log('Hello Webpack Encore! Edit me in assets/app.js');
 
-new Vue({
-    el: "#app",
-    data: {
-        'project': 'Symfony 5 com VUEJS'
-    },
-    template: `
-      <h3>VUE JS funcionando no {{project}}</h3>
-    `
-});
+// new Vue({
+//     el: "#app",
+//     data: {
+//         'project': 'Symfony 5 com VUEJS'
+//     },
+//     template: `
+//       <h3>VUE JS funcionando no {{project}}</h3>
+//     `
+// });
